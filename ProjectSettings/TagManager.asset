@@ -6,6 +6,8 @@ TagManager:
   tags:
   - InputManager
   - PlayerModel
+  - Ground
+  - Spine
   layers:
   - Default
   - TransparentFX

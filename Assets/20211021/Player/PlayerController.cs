@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rigid;
     public float power;
     public Vector3 force;
+    public float y;
 
     private void Awake()
     {
@@ -24,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     public void Fly(Vector3 direction)
     {
-        var dir = new Vector3(direction.x, 1f, direction.y);
+        var dir = new Vector3(direction.x, y, direction.y);
         force = dir * power;
         //rigid.AddForce(force, ForceMode.Impulse);
         GetComponent<CreatRagdoll>().CreateRagdoll(force);

@@ -5,35 +5,27 @@ using UnityEngine;
 public class FollowTarget : MonoBehaviour
 {
     public GameObject target;
-    public float duration;
-    public bool isLife;
-
     private Vector3 distance;
-    private Vector3 startPos;
-    private float startTime;
-    //private float endTime = 2f;
-    
-    private void Start()
+
+    public void init()
     {
-        startTime = Time.time;
-        startPos = transform.position;
-        isLife = true;
         distance = target.transform.position - transform.position;
     }
 
-    private void FixedUpdate()
+    //public void Start()
+    //{
+    //    distance = new Vector3(0f, 5f, 2f);
+    //}
+
+    private void LateUpdate()
     {
-        if(target != null)
-        {
-            target = GameObject.FindGameObjectWithTag("Player");
-        }
-        //if (isLife)
-            TargetFollow();
+        TargetFollow();
     }
 
     public void TargetFollow()
     {
         //var sec = (Time.time - startTime) / duration;
+        Debug.Log(target.transform.position - transform.position);
         var sec = 5f * Time.deltaTime;
         var newPos = Vector3.Lerp(transform.position, target.transform.position - distance, sec);
         transform.position = newPos;

@@ -13,8 +13,8 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         var direction = Vector3.zero;
-
-        if (Input.touchCount == 1)
+        var maincamera = GameManager.gameManager.cameraManager.GetComponent<CameraManager>().main.GetComponent<Camera>().enabled;
+        if (Input.touchCount == 1 && maincamera)
         {
             var touch = Input.touches[0];
             switch (touch.phase)

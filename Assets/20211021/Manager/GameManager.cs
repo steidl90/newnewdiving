@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager;
-    public GameObject mainCamera;
+    public GameObject cameraManager;
     public GameObject player;
     public GameObject inputManager;
     public GameObject UI;
@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         gameManager = this;
-        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         player = GameObject.FindGameObjectWithTag("Player");
+        //cameraManager = GameObject.FindGameObjectWithTag("MainCamera");
         //inputManager = GameObject.FindGameObjectWithTag("InputMangaer");
     }
 
