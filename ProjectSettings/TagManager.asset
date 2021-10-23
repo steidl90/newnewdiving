@@ -8,6 +8,8 @@ TagManager:
   - PlayerModel
   - Ground
   - Spine
+  - Water
+  - Spine2
   layers:
   - Default
   - TransparentFX

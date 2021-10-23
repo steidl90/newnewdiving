@@ -27,10 +27,11 @@ public class PlayerController : MonoBehaviour
     {
         var dir = new Vector3(direction.x, y, direction.y);
         force = dir * power;
-        //rigid.AddForce(force, ForceMode.Impulse);
         GetComponent<CreatRagdoll>().CreateRagdoll(force);
         var model = GameObject.FindGameObjectWithTag("PlayerModel");
         Destroy(model);
+
+        GameManager.gameManager.Finish();
     }
     
 }

@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public void Finish()
     {
         //UI.GetComponent<UIManager>().ButtonOff();
-        inputManager.SetActive(false);
+        //inputManager.SetActive(false);
         //player.GetComponent<PlayerController>().Diving();
         //mainCamera.GetComponent<FollowTarget>().DivingView();
     }

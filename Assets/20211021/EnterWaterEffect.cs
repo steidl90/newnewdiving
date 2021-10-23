@@ -9,11 +9,15 @@ public class EnterWaterEffect : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("asdasd");
-
-        if (splashFlag == default)
+        if (other.CompareTag("Player"))
         {
-            StartCoroutine(TriggerSplash());
+            var particles = gameObject.transform.GetChild(1);
+            particles.position = other.transform.position;
+
+            if (splashFlag == default)
+            {
+                StartCoroutine(TriggerSplash());
+            } 
         }
     }
 

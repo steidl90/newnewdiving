@@ -7,9 +7,9 @@ public class FinishGame : MonoBehaviour
 {
     public void OnTriggerEnter(Collider other)
     {
-        //if (other.tag == "Player")
-        //{
-        //    GameManager.gameManager.Finish();
-        //}
+        if (other.tag == "Player")
+        {
+            GameManager.gameManager.Finish();
+        }
     }
 }

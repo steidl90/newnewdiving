@@ -25,7 +25,6 @@ public class FollowTarget : MonoBehaviour
     public void TargetFollow()
     {
         //var sec = (Time.time - startTime) / duration;
-        Debug.Log(target.transform.position - transform.position);
         var sec = 5f * Time.deltaTime;
         var newPos = Vector3.Lerp(transform.position, target.transform.position - distance, sec);
         transform.position = newPos;

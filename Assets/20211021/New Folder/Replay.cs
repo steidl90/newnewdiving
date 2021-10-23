@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeBody : MonoBehaviour
+public class Replay : MonoBehaviour
 {
     public bool isReplay = false;
     public float recordTime;
@@ -16,7 +16,6 @@ public class TimeBody : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (MultiTouch.DoubleTap())
@@ -35,14 +34,14 @@ public class TimeBody : MonoBehaviour
     {
         if (isReplay)
         { 
-            Replay();
+            OnReplay();
         }
         else
             Record();
 
     }
 
-    private void Replay()
+    private void OnReplay()
     {
         if (pointsInTime.Count != 0)
         {
@@ -53,6 +52,9 @@ public class TimeBody : MonoBehaviour
         }
         if (test)
         {
+            var ragodoll = GameManager.gameManager.player.GetComponent<CreatRagdoll>();
+            ragodoll.DestroyRagdoll();
+            ragodoll.CreateReplayRagdoll();
             var cameraManager = GameManager.gameManager.cameraManager.GetComponent<CameraManager>();
             var replayUI = GameManager.gameManager.UI.transform.GetChild(0);
             replayUI.gameObject.SetActive(true);
@@ -63,7 +65,7 @@ public class TimeBody : MonoBehaviour
 
     private void Record()
     {
-        if (pointsInTime.Count > Mathf.Round(recordTime / Time.fixedDeltaTime))
+        if (pointsInTime.Count > Mathf.Round(recordTime / Time.fixedDeltaTime)) // 추후 던져질때 시간 저장 바닥에 충돌했을 때 시간 저장 해서 그 만큼만 하면 되지 않을까..?
         {
             pointsInTime.RemoveAt(pointsInTime.Count - 1);
         }
