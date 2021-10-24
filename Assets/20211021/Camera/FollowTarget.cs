@@ -7,15 +7,15 @@ public class FollowTarget : MonoBehaviour
     public GameObject target;
     private Vector3 distance;
 
-    public void init()
-    {
-        distance = target.transform.position - transform.position;
-    }
-
-    //public void Start()
+    //public void init()
     //{
-    //    distance = new Vector3(0f, 5f, 2f);
+    //    distance = target.transform.position - transform.position;
     //}
+
+    public void Start()
+    {
+        distance = new Vector3(0f, -4.2f, 1.5f);
+    }
 
     private void LateUpdate()
     {

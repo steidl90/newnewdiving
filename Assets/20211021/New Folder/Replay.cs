@@ -5,6 +5,7 @@ using UnityEngine;
 public class Replay : MonoBehaviour
 {
     public bool isReplay = false;
+    public float timer;
     public float recordTime;
     private List<PointInTime> pointsInTime;
     private Rigidbody rigid;
@@ -12,13 +13,14 @@ public class Replay : MonoBehaviour
     private bool test = true;
     private void Start()
     {
+        timer = float.MaxValue;
         pointsInTime = new List<PointInTime>();
         rigid = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        if (MultiTouch.DoubleTap())
+        if (rigid.velocity.magnitude < 0.5f && timer < Time.time)
         {
             StartReplay();
         }
@@ -26,9 +28,6 @@ public class Replay : MonoBehaviour
         {
             StopReplay();
         }
-
-        
-
     }
     private void FixedUpdate()
     {
@@ -38,7 +37,6 @@ public class Replay : MonoBehaviour
         }
         else
             Record();
-
     }
 
     private void OnReplay()
@@ -61,6 +59,10 @@ public class Replay : MonoBehaviour
             cameraManager.OnReplay();
             test = false;
         }
+        if (pointsInTime.Count == 0)
+        {
+            GameManager.gameManager.OnReStartUI();
+        }
     }
 
     private void Record()
@@ -76,7 +78,6 @@ public class Replay : MonoBehaviour
     {
         isReplay = true;
         rigid.isKinematic = true;
-        
     }
     private void StopReplay()
     {

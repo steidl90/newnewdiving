@@ -30,8 +30,18 @@ public class InputManager : MonoBehaviour
                         onTouchToDrag.Invoke(direction);
                     }
                     startPos = endPos = Vector3.zero;
+                    GameManager.gameManager.Finish();
                     break;
             }
         }
+    }
+    public void OnInputManager()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void OffInputManager()
+    {
+        gameObject.SetActive(false);
     }
 }

@@ -17,7 +17,7 @@ public class CameraManager : MonoBehaviour
         main.GetComponent<AudioListener>().enabled = false;
         sub.GetComponent<AudioListener>().enabled = true;
         sub.GetComponent<FollowTarget>().enabled = true;
-        sub.GetComponent<FollowTarget>().init();
+        //sub.GetComponent<FollowTarget>().init();
         sub.GetComponent<Camera>().depth = 0;
 
         //gameObject.AddComponent<FollowTarget>().target = player;
