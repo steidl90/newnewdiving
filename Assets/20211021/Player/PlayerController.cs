@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    private Animator animator;
-    private Rigidbody rigid;
+    //private Animator animator;
+    //private Rigidbody rigid;
     public float power;
     public float y;
 
     private void Awake()
     {
-        animator = GetComponentInChildren<Animator>();
-        rigid = GetComponent<Rigidbody>();
+        //animator = GetComponentInChildren<Animator>();
+        //rigid = GetComponent<Rigidbody>();
     }
 
     public void Fly(Vector3 direction)
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
         GetComponent<CreatRagdoll>().CreateRagdoll(force);
         var model = GameObject.FindGameObjectWithTag("PlayerModel");
         Destroy(model);
-        GameManager.gameManager.Finish();
+        GameManager.gameManager.Diving();
     }
     
     public void OnCollisionEnter(Collision other)

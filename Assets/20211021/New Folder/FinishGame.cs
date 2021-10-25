@@ -9,7 +9,7 @@ public class FinishGame : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            GameManager.gameManager.Finish();
+            GameManager.gameManager.Diving();
         }
     }
 }

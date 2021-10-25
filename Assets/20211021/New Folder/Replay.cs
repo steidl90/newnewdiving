@@ -10,8 +10,10 @@ public class Replay : MonoBehaviour
     private Rigidbody rigid;
     private float beforeY;
     private float isStopTime;
+    private bool ragdollInit = true;
     public bool Endcheak { get; set; } = false;
-    private bool test = true;
+    public bool IsDiving { get; set; } = false;
+
     private void Start()
     {
         pointsInTime = new List<PointInTime>();
@@ -42,8 +44,10 @@ public class Replay : MonoBehaviour
         { 
             OnReplay();
         }
-        else
+        else if (IsDiving)
+        { 
             Record();
+        }
     }
 
     private void OnReplay()
@@ -56,7 +60,7 @@ public class Replay : MonoBehaviour
             transform.rotation = pointInTime.rotation;
             pointsInTime.RemoveAt(pointsInTime.Count - 1); 
         }
-        if (test)
+        if (ragdollInit)
         {
             var ragodoll = GameManager.gameManager.player.GetComponent<CreatRagdoll>();
             ragodoll.DestroyRagdoll();
@@ -65,7 +69,7 @@ public class Replay : MonoBehaviour
             var replayUI = GameManager.gameManager.UI.transform.GetChild(0);
             replayUI.gameObject.SetActive(true);
             cameraManager.OnReplay();
-            test = false;
+            ragdollInit = false;
         }
         if (pointsInTime.Count == 0)
         {
@@ -81,7 +85,6 @@ public class Replay : MonoBehaviour
         if (pointsInTime.Count > Mathf.Round(recordTime / Time.fixedDeltaTime))
         {
             // 마지막에 저장 된 것 부터 삭제 된다
-            
             pointsInTime.RemoveAt(pointsInTime.Count - 1);
         }
         pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation));

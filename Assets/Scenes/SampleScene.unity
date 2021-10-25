@@ -3031,7 +3031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isReplay: 0
-  recordTime: 7
+  recordTime: 10
 --- !u!114 &2028010812 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5489789815437156070, guid: 2c0c55610efeed54b873c0a477c1463f, type: 3}

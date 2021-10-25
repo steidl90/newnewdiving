@@ -30,7 +30,7 @@ public class InputManager : MonoBehaviour
                         onTouchToDrag.Invoke(direction);
                     }
                     startPos = endPos = Vector3.zero;
-                    GameManager.gameManager.Finish();
+                    GameManager.gameManager.Diving();
                     break;
             }
         }

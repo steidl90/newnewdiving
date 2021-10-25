@@ -18,12 +18,10 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    public void Finish()
+    public void Diving()
     {
-        //UI.GetComponent<UIManager>().ButtonOff();
         inputManager.GetComponent<InputManager>().OffInputManager();
-        //player.GetComponent<PlayerController>().Diving();
-        //mainCamera.GetComponent<FollowTarget>().DivingView();
+        player.GetComponent<Replay>().IsDiving = true;
     }
     public void GameStart()
     {
