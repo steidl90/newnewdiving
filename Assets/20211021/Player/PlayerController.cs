@@ -5,16 +5,16 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    //private Animator animator;
-    //private Rigidbody rigid;
+    private Animator animator;
+    private Rigidbody rigid;
     public float power;
     public float y;
     private bool isReplay;
 
     private void Awake()
     {
-        //animator = GetComponentInChildren<Animator>();
-        //rigid = GetComponent<Rigidbody>();
+        animator = GetComponentInChildren<Animator>();
+        rigid = GetComponent<Rigidbody>();
     }
     private void Update()
     {
@@ -29,9 +29,12 @@ public class PlayerController : MonoBehaviour
     {
         var dir = new Vector3(direction.x, y, direction.y);
         var force = dir * power;
+        //animator.SetTrigger("Diving");
+        //rigid.AddForce(force, ForceMode.Impulse);
         GetComponent<CreatRagdoll>().CreateRagdoll(force);
         var model = GameObject.FindGameObjectWithTag("PlayerModel");
         Destroy(model);
+        GetComponent<Replay>().IsDiving = true;
         GameManager.gameManager.Diving();
     }
     
@@ -74,7 +77,9 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.gameManager.OnReStartUI();
             GetComponent<Replay>().StopReplay();
+            GetComponent<Replay>().Endcheak = false;
             Time.timeScale = 1f;
+            Destroy(rigid);
         }
     }
 }

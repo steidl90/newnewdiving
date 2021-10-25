@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
     public void Diving()
     {
         inputManager.GetComponent<InputManager>().OffInputManager();
-        player.GetComponent<Replay>().IsDiving = true;
     }
     public void GameStart()
     {
