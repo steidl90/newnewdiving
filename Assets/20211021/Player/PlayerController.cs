@@ -31,8 +31,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.layer != LayerMask.NameToLayer("Player") &&
             other.gameObject.layer != LayerMask.NameToLayer("DivingBoard"))
         {
-            Debug.Log("asd");
-            GetComponent<Replay>().timer = Time.time + 3f;
+            GetComponent<Replay>().Endcheak = true;
         }
     }
 }

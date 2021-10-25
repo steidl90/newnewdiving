@@ -5,28 +5,23 @@ using UnityEngine;
 public class FollowTarget : MonoBehaviour
 {
     public GameObject target;
-    private Vector3 distance;
-
-    //public void init()
-    //{
-    //    distance = target.transform.position - transform.position;
-    //}
+    public float distance = 10f;
 
     public void Start()
     {
-        distance = new Vector3(0f, -4.2f, 1.5f);
     }
 
     private void LateUpdate()
     {
         TargetFollow();
     }
-
+        
     public void TargetFollow()
     {
         //var sec = (Time.time - startTime) / duration;
         var sec = 5f * Time.deltaTime;
-        var newPos = Vector3.Lerp(transform.position, target.transform.position - distance, sec);
+        var targetPos = target.transform.position + -transform.forward * distance;
+        var newPos = Vector3.Lerp(transform.position, targetPos, sec);
         transform.position = newPos;
     }
     
