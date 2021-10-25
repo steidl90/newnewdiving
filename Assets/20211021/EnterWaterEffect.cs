@@ -11,13 +11,13 @@ public class EnterWaterEffect : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            var particles = gameObject.transform.GetChild(1);
+            var particles = gameObject.transform.GetChild(0);
             particles.position = other.transform.position;
 
             if (splashFlag == default)
             {
                 StartCoroutine(TriggerSplash());
-            } 
+            }
         }
     }
 
