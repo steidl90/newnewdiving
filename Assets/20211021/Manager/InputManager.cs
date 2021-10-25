@@ -28,9 +28,9 @@ public class InputManager : MonoBehaviour
                     if (endPos.y - startPos.y > 0)
                     {
                         onTouchToDrag.Invoke(direction);
+                        startPos = endPos = Vector3.zero;
+                        GameManager.gameManager.Diving();
                     }
-                    startPos = endPos = Vector3.zero;
-                    GameManager.gameManager.Diving();
                     break;
             }
         }

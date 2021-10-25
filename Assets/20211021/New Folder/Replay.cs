@@ -23,16 +23,11 @@ public class Replay : MonoBehaviour
 
     private void Update()
     {
-
         if (Endcheak)
         {
             CheakReplay(); 
         }
 
-        //if (rigid.velocity.magnitude < 0.5f && timer < Time.time)
-        //{
-        //    StartReplay();
-        //}
         if (Input.GetKeyDown(KeyCode.S))
         {
             StopReplay();
@@ -115,7 +110,6 @@ public class Replay : MonoBehaviour
             }
             isStopTime = Time.time;
         }
-        Debug.Log($"{Mathf.Abs(beforeY + 0.05f)}, {Mathf.Abs(transform.position.y)}");
     }
 
 }
