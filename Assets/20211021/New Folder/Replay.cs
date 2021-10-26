@@ -5,13 +5,9 @@ using UnityEngine;
 public class Replay : MonoBehaviour
 {
     public bool isReplay = false;
-    //public float recordTime;
-    public float isStopTime;
     public List<PointInTime> pointsInTime;
     private Rigidbody rigid;
-    private float beforeY;
     public bool ragdollInit = true;
-    public bool Endcheak { get; set; } = false;
     public bool IsDiving { get; set; } = false;
 
     private void Start()
@@ -22,10 +18,10 @@ public class Replay : MonoBehaviour
 
     private void Update()
     {
-        if (Endcheak)
-        {
-            CheakReplay(); 
-        }
+        //if (Endcheak)
+        //{
+        //    CheakReplay();
+        //}
 
     }
     private void FixedUpdate()
@@ -53,14 +49,6 @@ public class Replay : MonoBehaviour
 
     private void Record()
     {
-        // Mathf.Round(recordTime / Time.fixedDeltaTime) 반올림 함수
-        // fixedDeltaTime은 0.02가 나온다
-        // 현재 레코드 타임이 10이라서 500개를 저장한다
-        //if (pointsInTime.Count > Mathf.Round(recordTime / Time.fixedDeltaTime))
-        //{
-        //    // 마지막에 저장 된 것 부터 삭제 된다
-        //    pointsInTime.RemoveAt(pointsInTime.Count - 1);
-        //}
         pointsInTime.Insert(0, new PointInTime(transform.position, transform.rotation));
     }
 
@@ -77,20 +65,20 @@ public class Replay : MonoBehaviour
         IsDiving = false;
     }
 
-    private void CheakReplay()
-    {
-        if (isStopTime + 1f < Time.time)
-        {
-            if (Mathf.Abs(beforeY + 0.02f) < Mathf.Abs(transform.position.y))
-            {
-                beforeY = transform.position.y;
-            }
-            else
-            {
-                StartReplay();
-            }
-            isStopTime = Time.time;
-        }
-    }
+    //private void CheakReplay()
+    //{
+    //    if (isStopTime + 1f < Time.time)
+    //    {
+    //        if (Mathf.Abs(beforeY + 0.02f) < Mathf.Abs(transform.position.y))
+    //        {
+    //            beforeY = transform.position.y;
+    //        }
+    //        else
+    //        {
+    //            StartReplay();
+    //        }
+    //        isStopTime = Time.time;
+    //    }
+    //}
 
 }

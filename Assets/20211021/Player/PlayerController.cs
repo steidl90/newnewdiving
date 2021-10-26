@@ -5,47 +5,76 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    private Animator animator;
-    private Rigidbody rigid;
     public float power;
     public float y;
+
+    private Animator animator;
+    private Rigidbody rigid;
+    private Vector3 force;
     private bool isReplay;
+    private bool isCollision = true;
+    private GameObject model;
+    public float beforeY;
+    public float isStopTime;
+
+    private bool endcheak = false;
 
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
         rigid = GetComponent<Rigidbody>();
+        model = GameObject.FindGameObjectWithTag("PlayerModel");
     }
     private void Update()
     {
         isReplay = GetComponent<Replay>().isReplay;
-
-        if (isReplay)
+        if (endcheak)
         {
-            OnReplay(); 
+            CheakReplay();
+
+            if (isReplay)
+            {
+                OnReplay();
+            }
         }
     }
     public void Fly(Vector3 direction)
     {
         var dir = new Vector3(direction.x, y, direction.y);
-        var force = dir * power;
-        //animator.SetTrigger("Diving");
-        //rigid.AddForce(force, ForceMode.Impulse);
-        GetComponent<CreatRagdoll>().CreateRagdoll(force);
-        var model = GameObject.FindGameObjectWithTag("PlayerModel");
-        Destroy(model);
+        force = dir * power;
+        animator.SetTrigger("Diving");
+        rigid.AddForce(force, ForceMode.Impulse);
+
         GetComponent<Replay>().IsDiving = true;
         GameManager.gameManager.Diving();
     }
     
     public void OnCollisionEnter(Collision other)
     {
+        Debug.Log($"{isReplay}, {other.gameObject.layer}");
+
         if (other.gameObject.layer != LayerMask.NameToLayer("Player") &&
             other.gameObject.layer != LayerMask.NameToLayer("DivingBoard"))
         {
-            GetComponent<Replay>().Endcheak = true;
-            GetComponent<Replay>().isStopTime = Time.time;
+            endcheak = true;
+            isStopTime = Time.time;
+
+            if (other.gameObject.layer == LayerMask.NameToLayer("Floor") &&
+            isCollision)
+            {
+                GetComponent<CreatRagdoll>().CreateRagdoll(force * 0f);
+                model.SetActive(false);
+                isCollision = false;
+            }
+            else if (other.gameObject.layer != LayerMask.NameToLayer("Water") &&
+                     isCollision)
+            {
+                GetComponent<CreatRagdoll>().CreateRagdoll(force * 50f);
+                model.SetActive(false);
+                isCollision = false;
+            }
         }
+
         
     }
     public void OnTriggerEnter(Collider other)
@@ -64,10 +93,13 @@ public class PlayerController : MonoBehaviour
         var count = GetComponent<Replay>().pointsInTime.Count;
         if (rag)
         {
+            
             Time.timeScale = 1.5f;
             var ragodoll = GetComponent<CreatRagdoll>();
-            ragodoll.DestroyRagdoll();
-            ragodoll.CreateReplayRagdoll();
+            ragodoll.originalRagdoll.SetActive(false);
+            model.SetActive(true);
+            animator.SetTrigger("IsReplay");
+            isCollision = true;
             GameManager.gameManager.UI.transform.GetChild(0).gameObject.SetActive(true);
             GameManager.gameManager.cameraManager.GetComponent<CameraManager>().OnReplay();
             GetComponent<Replay>().ragdollInit = false;
@@ -77,9 +109,22 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.gameManager.OnReStartUI();
             GetComponent<Replay>().StopReplay();
-            GetComponent<Replay>().Endcheak = false;
+            endcheak = false;
             Time.timeScale = 1f;
-            Destroy(rigid);
+            //Destroy(rigid);
         }
+    }
+
+    private void CheakReplay()
+    {
+        if (beforeY + 0.02f < transform.position.y)
+        {
+            isStopTime = Time.time;
+        }
+        else if(isStopTime + 1f < Time.time)
+        {
+            GetComponent<Replay>().StartReplay();
+        }
+        beforeY = transform.position.y;
     }
 }

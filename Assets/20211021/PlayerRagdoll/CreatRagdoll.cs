@@ -14,11 +14,6 @@ public class CreatRagdoll : MonoBehaviour
         chest.GetComponent<FixedJoint>().connectedBody = GameManager.gameManager.player.GetComponent<Rigidbody>();
         var ragdoll = originalRagdoll.GetComponent<Ragdoll>();
         ragdoll.ApplyForce(force);
-        
-        //var ragdoll = Instantiate(prefab, transform.position, transform.rotation);
-        //ragdoll.transform.parent = transform;
-        //var newOne = ragdoll.GetComponent<Ragdoll>();
-        //newOne.ApplyForce(force);
     }
     public void CreateReplayRagdoll()
     {
@@ -27,7 +22,6 @@ public class CreatRagdoll : MonoBehaviour
         var chest = GameObject.FindGameObjectWithTag("Spine2");
         chest.AddComponent<FixedJoint>();
         chest.GetComponent<FixedJoint>().connectedBody = GameManager.gameManager.player.GetComponent<Rigidbody>();
-        
     }
 
     public void DestroyRagdoll()
