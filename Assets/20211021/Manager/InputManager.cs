@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class InputManager : MonoBehaviour
 {
-    public UnityEvent<Touch> onTouch;
     public UnityEvent<Vector3> onTouchToDrag;
     private Vector3 startPos;
     private Vector3 endPos;
@@ -29,7 +28,7 @@ public class InputManager : MonoBehaviour
                     {
                         onTouchToDrag.Invoke(direction);
                         startPos = endPos = Vector3.zero;
-                        GameManager.gameManager.Diving();
+                        OffInputManager();
                     }
                     break;
             }

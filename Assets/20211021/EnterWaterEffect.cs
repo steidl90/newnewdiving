@@ -5,17 +5,19 @@ using UnityEngine;
 public class EnterWaterEffect : MonoBehaviour
 {
     public GameObject BigSplash;
-    private float splashFlag;
+    public bool isSplash;
+    private float splashFlag = 0f;
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("a");
-        if (other.CompareTag("Player"))
+        
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player") && isSplash)
         {
+            isSplash = false;
             var particles = gameObject.transform.GetChild(0);
             particles.position = other.transform.position;
 
-            if (splashFlag == 0)
+            if (splashFlag == 0f)
             {
                 StartCoroutine(TriggerSplash());
             }
@@ -24,10 +26,10 @@ public class EnterWaterEffect : MonoBehaviour
 
     IEnumerator TriggerSplash()
     {
-        splashFlag = 1;
+        splashFlag = 1f;
         BigSplash.SetActive(true);
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(3f);
         BigSplash.SetActive(false);
-        splashFlag = 0;
+        splashFlag = 0f;
     }
 }

@@ -16,14 +16,6 @@ public class Replay : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
     }
 
-    private void Update()
-    {
-        //if (Endcheak)
-        //{
-        //    CheakReplay();
-        //}
-
-    }
     private void FixedUpdate()
     {
         if (isReplay)

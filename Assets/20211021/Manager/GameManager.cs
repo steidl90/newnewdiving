@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     public void Diving()
     {
-        inputManager.GetComponent<InputManager>().OffInputManager();
+        //inputManager.GetComponent<InputManager>().OffInputManager();
     }
     public void GameStart()
     {

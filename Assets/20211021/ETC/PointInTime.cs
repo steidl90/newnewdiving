@@ -12,5 +12,4 @@ public class PointInTime
         position = _position;
         rotation = _rotation;
     }
-
 }

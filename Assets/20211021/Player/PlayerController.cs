@@ -10,31 +10,60 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
     private Rigidbody rigid;
+    public GameObject model;
+    public GameObject ragdoll;
+    public GameObject effect;
     private Vector3 force;
+
     private bool isReplay;
     private bool isCollision = true;
-    private GameObject model;
+    private bool endcheak = false;
+    private bool initRag = true;
+    private bool isDiving = false;
+    
     public float beforeY;
     public float isStopTime;
-
-    private bool endcheak = false;
+    public float ragdollPower;
+    private NewReplay newReplay;
+    public bool IsReplay { get => isReplay; }
 
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
-        rigid = GetComponent<Rigidbody>();
         model = GameObject.FindGameObjectWithTag("PlayerModel");
+        rigid = model.GetComponent<Rigidbody>();
+        ragdoll = GetComponent<CreatRagdoll>().originalRagdoll.GetComponent<Ragdoll>().ragdoll.gameObject;
+        newReplay = GetComponent<NewReplay>();
     }
-    private void Update()
+    
+    private void FixedUpdate()
     {
-        isReplay = GetComponent<Replay>().isReplay;
+        if (isDiving && !isReplay)
+        {
+            var playerData = new ReplayData();
+            if (model.activeSelf)
+            {
+                playerData.target = model;
+            }
+            else
+            {
+                playerData.target = ragdoll;
+            }
+            playerData.types = ReplayData.Types.posAndRot;
+            playerData.position = playerData.target.transform.position;
+            playerData.rotation = playerData.target.transform.rotation;
+            newReplay.Record(playerData);
+        }
+
         if (endcheak)
         {
             CheakReplay();
 
             if (isReplay)
             {
-                OnReplay();
+                ReplaySetting();
+                effect.GetComponent<EnterWaterEffect>().isSplash = true;
+                GetComponent<NewReplay>().OnReplay();
             }
         }
     }
@@ -44,87 +73,127 @@ public class PlayerController : MonoBehaviour
         force = dir * power;
         animator.SetTrigger("Diving");
         rigid.AddForce(force, ForceMode.Impulse);
-
-        GetComponent<Replay>().IsDiving = true;
-        GameManager.gameManager.Diving();
+        rigid.useGravity = true;
+        isDiving = true;
     }
     
-    public void OnCollisionEnter(Collision other)
+    public void OnTrigger(Collider other, Vector3 pos)
     {
-        Debug.Log($"{isReplay}, {other.gameObject.layer}");
-
         if (other.gameObject.layer != LayerMask.NameToLayer("Player") &&
             other.gameObject.layer != LayerMask.NameToLayer("DivingBoard"))
         {
             endcheak = true;
             isStopTime = Time.time;
-
+            var rag = GetComponent<CreatRagdoll>();
             if (other.gameObject.layer == LayerMask.NameToLayer("Floor") &&
-            isCollision)
+                isCollision)
             {
-                GetComponent<CreatRagdoll>().CreateRagdoll(force * 0f);
+                rag.CreateRagdoll(force * 0f, pos);
                 model.SetActive(false);
+                ReplayActive();
+
                 isCollision = false;
             }
             else if (other.gameObject.layer != LayerMask.NameToLayer("Water") &&
                      isCollision)
             {
-                GetComponent<CreatRagdoll>().CreateRagdoll(force * 50f);
+                rag.CreateRagdoll(force * ragdollPower, pos);
                 model.SetActive(false);
+                ReplayActive();
+
                 isCollision = false;
             }
         }
-
-        
     }
-    public void OnTriggerEnter(Collider other)
+    public void ReplaySetting()
     {
-        Debug.Log($"{isReplay}, {other.gameObject.layer}");
-
-        if (isReplay && other.gameObject.layer == LayerMask.NameToLayer("Water"))
+        var count = GetComponent<NewReplay>().data.Count;
+        if (initRag)
         {
-            Debug.Log("¼º°ø");
-        }
-    }
-
-    public void OnReplay()
-    {
-        var rag = GetComponent<Replay>().ragdollInit;
-        var count = GetComponent<Replay>().pointsInTime.Count;
-        if (rag)
-        {
-            
+            initRag = false;
             Time.timeScale = 1.5f;
-            var ragodoll = GetComponent<CreatRagdoll>();
-            ragodoll.originalRagdoll.SetActive(false);
-            model.SetActive(true);
+            ModelOnRagdollOff();
             animator.SetTrigger("IsReplay");
             isCollision = true;
             GameManager.gameManager.UI.transform.GetChild(0).gameObject.SetActive(true);
             GameManager.gameManager.cameraManager.GetComponent<CameraManager>().OnReplay();
-            GetComponent<Replay>().ragdollInit = false;
+            model.GetComponent<Rigidbody>().isKinematic = true;
+            ragdoll = GetComponent<CreatRagdoll>().replayRagdoll.GetComponent<Ragdoll>().ragdoll.gameObject;
+            var rag = GetComponent<CreatRagdoll>().replayRagdoll;
+            var joint = rag.GetComponentsInChildren<CharacterJoint>();
+            foreach (var elem in joint)
+            {
+                elem.enableProjection = true;
+            }
         }
 
         if (count == 0)
         {
             GameManager.gameManager.OnReStartUI();
-            GetComponent<Replay>().StopReplay();
             endcheak = false;
+            isReplay = false;
+            isCollision = false;
+            
             Time.timeScale = 1f;
-            //Destroy(rigid);
+
+            var rag = GetComponent<CreatRagdoll>().replayRagdoll;
+            var joint = rag.GetComponentsInChildren<Rigidbody>();
+            foreach (var elem in joint)
+            {
+                elem.isKinematic = true;
+            }
         }
     }
 
     private void CheakReplay()
     {
-        if (beforeY + 0.02f < transform.position.y)
+        var currentY = 0f;
+        if(model.activeSelf)
+        {
+            currentY = model.transform.position.y;
+        }
+        else
+        {
+            currentY = ragdoll.transform.position.y;
+        }
+
+        if (beforeY + 0.1f < currentY ||
+            beforeY - 0.1f > currentY)
         {
             isStopTime = Time.time;
         }
-        else if(isStopTime + 1f < Time.time)
+        else if(isStopTime + 1.5f < Time.time)
         {
-            GetComponent<Replay>().StartReplay();
+            
+            isReplay = true;
         }
-        beforeY = transform.position.y;
+        beforeY = currentY;
+    }
+    private void ReplayActive()
+    {
+        if (!isReplay)
+        {
+            ReplayData replay = new ReplayData();
+            replay.types = ReplayData.Types.deActive;
+            replay.target = model;
+            newReplay.Record(replay);
+
+            ReplayData replay1 = new ReplayData();
+            replay1.types = ReplayData.Types.active;
+            replay1.target = ragdoll;
+            newReplay.Record(replay1); 
+        }
+    }
+
+    public void ModelOnRagdollOff()
+    {
+        Debug.Log("¸ðµ¨ ÄÑÁü");
+        model.SetActive(true);
+        GetComponent<CreatRagdoll>().OffRagdoll();
+    }
+    public void RagdollOnModelOff()
+    {
+        model.SetActive(false);
+        GetComponent<CreatRagdoll>().OnRagdoll();
     }
 }

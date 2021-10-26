@@ -5,17 +5,23 @@ using UnityEngine;
 public class FollowTarget : MonoBehaviour
 {
     public GameObject target;
+    public GameObject targetModel;
+    public GameObject targetRagdoll;
     public float distance = 10f;
 
     public void Start()
     {
+        target = targetModel;
     }
 
     private void LateUpdate()
     {
+        if(!target.activeSelf)
+        {
+            target = targetRagdoll;
+        }
         TargetFollow();
     }
-        
     public void TargetFollow()
     {
         //var sec = (Time.time - startTime) / duration;
