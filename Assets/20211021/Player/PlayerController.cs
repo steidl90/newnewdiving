@@ -120,6 +120,7 @@ public class PlayerController : MonoBehaviour
             model.GetComponent<Rigidbody>().isKinematic = true;
             ragdoll = GetComponent<CreatRagdoll>().replayRagdoll.GetComponent<Ragdoll>().ragdoll.gameObject;
             var rag = GetComponent<CreatRagdoll>().replayRagdoll;
+            
             var joint = rag.GetComponentsInChildren<CharacterJoint>();
             foreach (var elem in joint)
             {
