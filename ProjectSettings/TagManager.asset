@@ -12,6 +12,7 @@ TagManager:
   - Spine2
   - Ragdoll
   - GoalPos
+  - House
   layers:
   - Default
   - TransparentFX
