@@ -6,15 +6,20 @@ public class PlayerCollision : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        GameManager.gameManager.player.GetComponent<PlayerController>().OnTrigger(other, transform.position);
-        Debug.Log(GetComponent<Rigidbody>().velocity.magnitude);
-        var speed = 29f;
-        var isReplay = GameManager.gameManager.player.GetComponent<PlayerController>().IsReplay;
-        if (isReplay)
-            speed = -1f;
+        var playerControl = GameManager.gameManager.player.GetComponent<PlayerController>();
+        playerControl.OnTrigger(other, transform.position);
+        var speed = playerControl.IsReplay ? -1f : 29f;
+        //Debug.Log($"{GetComponent<Rigidbody>().velocity.magnitude}, {speed}");
         if (other.CompareTag("House") && GetComponent<Rigidbody>().velocity.magnitude >= speed)
         {
-            var frags = Physics.OverlapSphere(transform.position, 1f);
+            var house = GameManager.gameManager.destoryHouse.GetComponent<DestroyHouse>().houses;
+            foreach (var elem in house)
+            {
+                if (elem.Value == other.gameObject)
+                    playerControl.houseKey = elem.Key;
+            }
+            Debug.Log(playerControl.houseKey);
+            var frags = Physics.OverlapSphere(transform.position, 3f);
             foreach (var obj in frags)
             {
                 obj.gameObject.SendMessage("Damage", 3.5, SendMessageOptions.DontRequireReceiver);
