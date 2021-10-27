@@ -6,32 +6,42 @@ public class CreatRagdoll : MonoBehaviour
 {
     public GameObject originalRagdoll;
     public GameObject replayRagdoll;
-    public void CreateRagdoll(Vector3 force)
+    public void CreateRagdoll(Vector3 force, Vector3 pos)
     {
-        originalRagdoll.SetActive(true);
-        var chest = GameObject.FindGameObjectWithTag("Spine");
-        chest.AddComponent<FixedJoint>();
-        chest.GetComponent<FixedJoint>().connectedBody = GameManager.gameManager.player.GetComponent<Rigidbody>();
-        var ragdoll = originalRagdoll.GetComponent<Ragdoll>();
-        ragdoll.ApplyForce(force);
-        
-        //var ragdoll = Instantiate(prefab, transform.position, transform.rotation);
-        //ragdoll.transform.parent = transform;
-        //var newOne = ragdoll.GetComponent<Ragdoll>();
-        //newOne.ApplyForce(force);
-    }
-    public void CreateReplayRagdoll()
-    {
-        replayRagdoll.SetActive(true);
-        
-        var chest = GameObject.FindGameObjectWithTag("Spine2");
-        chest.AddComponent<FixedJoint>();
-        chest.GetComponent<FixedJoint>().connectedBody = GameManager.gameManager.player.GetComponent<Rigidbody>();
+        var onReplay = GetComponent<PlayerController>().IsReplay;
+        if (onReplay)
+        { 
+            OnReplayRagdoll();
+            replayRagdoll.transform.position = pos;
+        }
+        else
+        {
+            OnRagdoll();
+            originalRagdoll.transform.position = pos;
+            var ragdoll = originalRagdoll.GetComponent<Ragdoll>();
+            ragdoll.ApplyForce(force);
+        }
         
     }
 
     public void DestroyRagdoll()
     {
         Destroy(originalRagdoll);
+    }
+    public void OnRagdoll()
+    {
+        originalRagdoll.SetActive(true);
+    }
+    public void OffRagdoll()
+    {
+        originalRagdoll.SetActive(false);
+    }
+    public void OnReplayRagdoll()
+    {
+        replayRagdoll.SetActive(true);
+    }
+    public void OffReplayRagdoll()
+    {
+        replayRagdoll.SetActive(false);
     }
 }
