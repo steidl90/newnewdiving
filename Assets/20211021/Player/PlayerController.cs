@@ -20,7 +20,8 @@ public class PlayerController : MonoBehaviour
     private bool endcheak = false;
     private bool initRag = true;
     private bool isDiving = false;
-    
+
+    public int houseKey;
     public float beforeY;
     public float isStopTime;
     public float ragdollPower;
@@ -117,10 +118,8 @@ public class PlayerController : MonoBehaviour
             isCollision = true;
             GameManager.gameManager.UI.transform.GetChild(0).gameObject.SetActive(true);
             GameManager.gameManager.cameraManager.GetComponent<CameraManager>().OnReplay();
-            var trans = GameManager.gameManager.destoryHouse.transform.GetChild(0).gameObject.transform;
-            Destroy(GameManager.gameManager.destoryHouse.transform.GetChild(0).gameObject);
-            var house0 = GameManager.gameManager.prefabHouse[0];
-            house0.SetActive(true);
+
+            InitHouse();
 
             model.GetComponent<Rigidbody>().isKinematic = true;
             ragdoll = GetComponent<CreatRagdoll>().replayRagdoll.GetComponent<Ragdoll>().ragdoll.gameObject;
@@ -200,5 +199,12 @@ public class PlayerController : MonoBehaviour
     {
         model.SetActive(false);
         GetComponent<CreatRagdoll>().OnRagdoll();
+    }
+
+    public void InitHouse()
+    {
+        var house = GameManager.gameManager.destoryHouse.GetComponent<DestroyHouse>();
+        house.HouseDestroy(houseKey);
+        house.HouseInit(houseKey);
     }
 }

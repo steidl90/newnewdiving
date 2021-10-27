@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     public GameObject inputManager;
     public GameObject UI;
     public GameObject destoryHouse;
-    public GameObject[] prefabHouse;
 
     private void Awake()
     {
