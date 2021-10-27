@@ -193,7 +193,6 @@ public class PlayerController : MonoBehaviour
 
     public void ModelOnRagdollOff()
     {
-        Debug.Log("¸ðµ¨ ÄÑÁü");
         model.SetActive(true);
         GetComponent<CreatRagdoll>().OffRagdoll();
     }

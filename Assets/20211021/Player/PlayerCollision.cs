@@ -8,7 +8,11 @@ public class PlayerCollision : MonoBehaviour
     {
         GameManager.gameManager.player.GetComponent<PlayerController>().OnTrigger(other, transform.position);
         Debug.Log(GetComponent<Rigidbody>().velocity.magnitude);
-        if (other.tag.Equals("House") && GetComponent<Rigidbody>().velocity.magnitude >= 29f)
+        var speed = 29f;
+        var isReplay = GameManager.gameManager.player.GetComponent<PlayerController>().IsReplay;
+        if (isReplay)
+            speed = -1f;
+        if (other.CompareTag("House") && GetComponent<Rigidbody>().velocity.magnitude >= speed)
         {
             var frags = Physics.OverlapSphere(transform.position, 1f);
             foreach (var obj in frags)
