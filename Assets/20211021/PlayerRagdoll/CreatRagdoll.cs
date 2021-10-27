@@ -13,8 +13,6 @@ public class CreatRagdoll : MonoBehaviour
         { 
             OnReplayRagdoll();
             replayRagdoll.transform.position = pos;
-            //var ragdoll = replayRagdoll.GetComponent<Ragdoll>();
-            //ragdoll.ApplyForce(force);
         }
         else
         {
@@ -32,7 +30,6 @@ public class CreatRagdoll : MonoBehaviour
     }
     public void OnRagdoll()
     {
-        Debug.Log("기존렉돌");
         originalRagdoll.SetActive(true);
     }
     public void OffRagdoll()
