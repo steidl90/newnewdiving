@@ -270,11 +270,12 @@ public class FraggedController : MonoBehaviour
 		}
 	}
 
-	public void ReleaseFrags(bool editor) {
+	public void ReleaseFrags() {
 		if (combinedFrags != null) {
 			for (int i = 0; i < meshFilters.Length; i++) {
 				meshFilters[i].transform.gameObject.GetComponent<Renderer>().enabled = true;
 			}
+			Debug.Log("ÆÄ±«");
 			Destroy(combinedFrags);
 		}
 	}

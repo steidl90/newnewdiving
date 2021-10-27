@@ -13,6 +13,7 @@ TagManager:
   - Ragdoll
   - GoalPos
   - House
+  - Houses
   layers:
   - Default
   - TransparentFX

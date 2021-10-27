@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject inputManager;
     public GameObject UI;
-
+    public GameObject destoryHouse;
+    public GameObject[] prefabHouse;
 
     private void Awake()
     {
@@ -35,5 +36,9 @@ public class GameManager : MonoBehaviour
     public void ReStart()
     {
         SceneManager.LoadScene(0);
+    }
+    public void ReSetHouse()
+    {
+        destoryHouse.GetComponentInChildren<FraggedController>().ReleaseFrags();
     }
 }

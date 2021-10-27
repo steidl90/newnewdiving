@@ -77,6 +77,7 @@ public class FraggedChild : MonoBehaviour
 	}
 	//frags fracture fragments on Collisions
 	public void OnCollisionEnter(Collision collision) {
+		Debug.LogWarning("asd");
 		if ((fragControl.collideMask.value & 1 << collision.gameObject.layer) == 1 << collision.gameObject.layer) {
 			if (this.fragControl.collidefragMagnitude > 0 && collision.relativeVelocity.magnitude > this.fragControl.collidefragMagnitude) {
 				fragMe(collision.relativeVelocity.magnitude * .2f * fragControl.hitPointDecrease);
@@ -123,7 +124,7 @@ public class FraggedChild : MonoBehaviour
 			fragControl.startMesh.GetComponent<Renderer>().enabled = false;
 			fragControl.EnableRenderers();
 		}
-		fragControl.ReleaseFrags(false);
+		fragControl.ReleaseFrags();
 		fragControl.reCounter = 0;
 
 		if (this.connected) {
