@@ -18,9 +18,15 @@ public class PlayerCollision : MonoBehaviour
             var childs = other.gameObject.transform.parent.GetComponentsInChildren<FraggedChild>();
             foreach (var child in childs)
             {
-                //child.GetComponent<Rigidbody>().AddForce(new Vector3(0f, 5f, 5f), ForceMode.Impulse);
-                child.GetComponent<Rigidbody>().AddExplosionForce(25f, transform.position, 30f, 10f, ForceMode.Impulse);
+                child.GetComponent<Rigidbody>().AddExplosionForce(10f, transform.position, 20f, 5f, ForceMode.Impulse);
             }
+            var house = GameManager.gameManager.destoryHouse.GetComponent<DestroyHouse>().houses;
+            foreach (var elem in house)
+            {
+                if (elem.Value == other.transform.parent.gameObject)
+                    playerControl.houseKey = elem.Key;
+            }
+            Debug.Log(playerControl.houseKey);
         }
 
         if (other.CompareTag("House") && GetComponent<Rigidbody>().velocity.magnitude >= speed)
