@@ -20,9 +20,11 @@ public class PlayerController : MonoBehaviour
     private bool endcheak = false;
     private bool initRag = true;
     private bool isDiving = false;
-
+    [HideInInspector]
     public int houseKey;
+    [HideInInspector]
     public float beforeY;
+    [HideInInspector]
     public float isStopTime;
     public float ragdollPower;
     private NewReplay newReplay;

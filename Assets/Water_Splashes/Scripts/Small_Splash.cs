@@ -1,23 +1,23 @@
 using UnityEngine;
 using System.Collections;
 
-public class Big_Splash : MonoBehaviour {
+public class Small_Splash : MonoBehaviour {
 
 
-public GameObject BigSplash;
+public GameObject SmallSplash;
 
 private float splashFlag = 0;
 
 
 void Start (){
 
-    BigSplash.SetActive(false);
+    SmallSplash.SetActive(false);
 
 }
 
 void Update (){
 
-    if (Input.GetKeyDown(KeyCode.A))
+    if (Input.GetButtonDown("Fire2"))
     {
 
         if (splashFlag == 0)
@@ -32,15 +32,15 @@ void Update (){
 }
 
    
-	IEnumerator TriggerSplash (){
+IEnumerator TriggerSplash (){
     
     splashFlag = 1;
     
-    BigSplash.SetActive(true);
+    SmallSplash.SetActive(true);
 
-	yield return new WaitForSeconds (3.5f);
+	yield return new  WaitForSeconds (2.1f);
 
-    BigSplash.SetActive(false);
+    SmallSplash.SetActive(false);
 
     splashFlag = 0;
 
