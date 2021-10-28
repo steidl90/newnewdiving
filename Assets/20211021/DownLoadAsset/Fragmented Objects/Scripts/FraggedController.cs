@@ -275,7 +275,6 @@ public class FraggedController : MonoBehaviour
 			for (int i = 0; i < meshFilters.Length; i++) {
 				meshFilters[i].transform.gameObject.GetComponent<Renderer>().enabled = true;
 			}
-			Debug.Log("ÆÄ±«");
 			Destroy(combinedFrags);
 		}
 	}

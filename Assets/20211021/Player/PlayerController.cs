@@ -72,7 +72,8 @@ public class PlayerController : MonoBehaviour
     }
     public void Fly(Vector3 direction)
     {
-        var dir = new Vector3(direction.x, y, direction.y);
+        // 로컬로케이션을 곱해줌으로 해당 오브젝트의 방향이 바뀌더라도 항상 앞으로 다이빙 하게 한다
+        var dir = transform.localRotation * new Vector3(direction.x, y, direction.y);
         force = dir * power;
         animator.SetTrigger("Diving");
         rigid.AddForce(force, ForceMode.Impulse);
@@ -208,5 +209,6 @@ public class PlayerController : MonoBehaviour
         var house = GameManager.gameManager.destoryHouse.GetComponent<DestroyHouse>();
         house.HouseDestroy(houseKey);
         house.HouseInit(houseKey);
+
     }
 }

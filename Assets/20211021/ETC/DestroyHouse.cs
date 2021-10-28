@@ -28,5 +28,6 @@ public class DestroyHouse : MonoBehaviour
         houses[key] = Instantiate(prefabHouse[key]);
         houses[key].transform.SetParent(transform);
         houses[key].transform.SetPositionAndRotation(trans[key].position, trans[key].rotation);
+        Destroy(GameObject.Find("Combined Fragments"));
     }
 }

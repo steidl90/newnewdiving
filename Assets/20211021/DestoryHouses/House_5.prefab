@@ -34070,7 +34070,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6853520939816786962}
-  m_LocalRotation: {x: 0.06538119, y: 0.70407826, z: 0.70407706, w: -0.06538137}
+  m_LocalRotation: {x: 0.0653834, y: 0.7040774, z: 0.7040774, w: -0.0653834}
   m_LocalPosition: {x: 44.32307, y: -20.728958, z: -24.790611}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -34144,7 +34144,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.73, y: 9.56, z: 5.8}
+  m_Size: {x: 6.61, y: 9.56, z: 4.72}
   m_Center: {x: 0, y: 0.04, z: 11.7}
 --- !u!65 &6853520939816786960
 BoxCollider:
@@ -34157,8 +34157,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.56, y: 9.98, z: 9.67}
-  m_Center: {x: 0, y: 0.07, z: 5.51}
+  m_Size: {x: 7.38, y: 9.98, z: 9.67}
+  m_Center: {x: -0.26, y: 0.07, z: 5.51}
 --- !u!1 &6853520939816856870
 GameObject:
   m_ObjectHideFlags: 0
@@ -76405,7 +76405,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -76458,7 +76458,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -76511,7 +76511,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationX:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -76564,7 +76564,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startRotationY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0
       minScalar: 0
       maxCurve:
@@ -80808,7 +80808,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 99c01854223dc3c4bab395db7668d049, type: 2}
+  - {fileID: 2100000, guid: 35b3f8b0173dcad42a78d7ace2476948, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
