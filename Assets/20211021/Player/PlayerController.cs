@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
 
             InitHouse();
 
-            model.GetComponent<Rigidbody>().isKinematic = true;
+            model.GetComponent<Rigidbody>().useGravity = false;
             ragdoll = GetComponent<CreatRagdoll>().replayRagdoll.GetComponent<Ragdoll>().ragdoll.gameObject;
             var rag = GetComponent<CreatRagdoll>().replayRagdoll;
             

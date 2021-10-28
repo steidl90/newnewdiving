@@ -24,9 +24,18 @@ public class NewReplay : MonoBehaviour
                 case ReplayData.Types.posAndRot:
                     if(player.target ==
                         GetComponent<CreatRagdoll>().originalRagdoll.GetComponent<Ragdoll>().ragdoll.gameObject)
-                    player.target = GetComponent<CreatRagdoll>().replayRagdoll.GetComponent<Ragdoll>().ragdoll.gameObject;
-                    player.target.transform.position = player.position;
-                    player.target.transform.rotation = player.rotation;
+                    { 
+                        player.target = GetComponent<CreatRagdoll>().replayRagdoll.GetComponent<Ragdoll>().ragdoll.gameObject;
+
+                        player.target.transform.position = player.position;
+                        player.target.transform.rotation = player.rotation;
+                    }
+                    else if(player.target == GameObject.FindGameObjectWithTag("PlayerModel"))
+                    {
+                        player.target.GetComponent<Rigidbody>().MovePosition(player.position);
+                        player.target.GetComponent<Rigidbody>().MoveRotation(player.rotation);
+                    }
+                    
                     break;
                 case ReplayData.Types.deActive:
                     player.target.SetActive(false);

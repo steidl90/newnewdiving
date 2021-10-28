@@ -56,7 +56,7 @@ public class FraggedController : MonoBehaviour
 	[Tooltip("Combine frags to a single mesh.")]
 	public bool combineFrags = true;
 	[Tooltip("Combines all fragments to one mesh after last fragged fragment+delay [seconds/10] (performance+++) (negative/zero=don't merge)")]
-	public int combineMeshesDelay = 3;
+	public int combineMeshesDelay = 10;
 
 	[HideInInspector]
 	public Transform startMesh;             //Original mesh used when not fragmented
