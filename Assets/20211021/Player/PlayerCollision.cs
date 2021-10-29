@@ -13,7 +13,8 @@ public class PlayerCollision : MonoBehaviour
 
         if (other.CompareTag("GoalPos") && GetComponent<Rigidbody>().velocity.magnitude >= speed / 5f)
         {
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
+            Debug.Log("∞Ò¿Œ");
         }
 
 

@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     public float isStopTime;
     public float ragdollPower;
     private NewReplay newReplay;
+    public bool IsDiving { get => isDiving; }
     public bool IsReplay { get => isReplay; }
 
     private void Awake()
@@ -92,7 +93,7 @@ public class PlayerController : MonoBehaviour
             if (other.gameObject.layer == LayerMask.NameToLayer("Floor") &&
                 isCollision)
             {
-                rag.CreateRagdoll(force * 0f, pos);
+                rag.CreateRagdoll(force * 10f, pos);
                 model.SetActive(false);
                 ReplayActive();
 
@@ -121,7 +122,7 @@ public class PlayerController : MonoBehaviour
             isCollision = true;
             GameManager.gameManager.UI.transform.GetChild(0).gameObject.SetActive(true);
             GameManager.gameManager.cameraManager.GetComponent<CameraManager>().OnReplay();
-
+            isDiving = false;
             InitHouse();
 
             model.GetComponent<Rigidbody>().useGravity = false;
