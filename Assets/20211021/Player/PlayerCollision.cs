@@ -11,6 +11,13 @@ public class PlayerCollision : MonoBehaviour
         var speed = playerControl.IsReplay ? -1f : 29f;
         Debug.Log(other.name);
 
+        if (other.CompareTag("GoalPos") && GetComponent<Rigidbody>().velocity.magnitude >= speed / 5f)
+        {
+            Time.timeScale = 0;
+        }
+
+
+
         if (other.CompareTag("Plane") && GetComponent<Rigidbody>().velocity.magnitude >= speed / 5f)
         {
             other.gameObject.transform.parent.GetComponentInChildren<FraggedChild>().Damage(speed);
