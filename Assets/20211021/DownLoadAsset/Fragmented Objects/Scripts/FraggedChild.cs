@@ -51,7 +51,11 @@ public class FraggedChild : MonoBehaviour
 		sScale = transform.localScale;
 		cacheRB.mass = fragControl.fragMass;
 		if (fragControl.impactSound != null)
+		{ 
 			audioS = gameObject.AddComponent<AudioSource>();
+			audioS.maxDistance = 70f;
+			audioS.spatialBlend = 1f;
+		}
 	}
 
 

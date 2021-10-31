@@ -39,9 +39,20 @@ public class PlayerController : MonoBehaviour
         ragdoll = GetComponent<CreatRagdoll>().originalRagdoll.GetComponent<Ragdoll>().ragdoll.gameObject;
         newReplay = GetComponent<NewReplay>();
     }
-    
+
+    private void Update()
+    {
+        if (model.activeSelf)
+        {
+            ragdollPower = rigid.velocity.magnitude;
+            if (ragdollPower > 25f)
+                ragdollPower = 25f;
+        }
+    }
+
     private void FixedUpdate()
     {
+        
         if (isDiving && !isReplay)
         {
             var playerData = new ReplayData();
@@ -93,7 +104,7 @@ public class PlayerController : MonoBehaviour
             if (other.gameObject.layer == LayerMask.NameToLayer("Floor") &&
                 isCollision)
             {
-                rag.CreateRagdoll(force * 10f, pos);
+                rag.CreateRagdoll(force * ragdollPower, pos);
                 model.SetActive(false);
                 ReplayActive();
 

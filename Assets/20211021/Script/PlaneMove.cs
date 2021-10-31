@@ -22,10 +22,11 @@ public class PlaneMove : MonoBehaviour
         var isReplay = transform.parent.GetComponent<Replay>().isReplay;
         if (!isReplay)
         {
-            if (timer + 15 <= Time.time)
+            if (timer + 10 <= Time.time)
             {
                 transform.position = StartPos;
                 timer = (int)Time.time;
+                GetComponent<AudioSource>().Play();
             }
             transform.position += pot * Vector3.forward * speed * Time.deltaTime; 
         }

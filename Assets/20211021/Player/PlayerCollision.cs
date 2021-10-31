@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
+    public GameObject sound;
     private void OnTriggerEnter(Collider other)
     {
         var playerControl = GameManager.gameManager.player.GetComponent<PlayerController>();
         playerControl.OnTrigger(other, transform.position);
         var speed = playerControl.IsReplay ? -1f : 29f;
-        Debug.Log(other.name);
+        Debug.Log($"{other.name}, {other.tag}, {GetComponent<Rigidbody>().velocity}, {GetComponent<Rigidbody>().velocity.magnitude}");
 
         if (other.CompareTag("GoalPos") && GetComponent<Rigidbody>().velocity.magnitude >= speed / 5f)
         {
@@ -18,11 +19,12 @@ public class PlayerCollision : MonoBehaviour
         }
 
 
-
         if (other.CompareTag("Plane") && GetComponent<Rigidbody>().velocity.magnitude >= speed / 5f)
         {
+            sound.GetComponent<DestroySound>().SoundPlay(transform.position);
             other.gameObject.transform.parent.GetComponentInChildren<FraggedChild>().Damage(speed);
             other.gameObject.transform.parent.GetComponent<PlaneMove>().speed = 0f;
+            //other.gameObject.GetComponent<AudioSource>().Stop();
             var childs = other.gameObject.transform.parent.GetComponentsInChildren<FraggedChild>();
             foreach (var child in childs)
             {
@@ -39,6 +41,7 @@ public class PlayerCollision : MonoBehaviour
 
         if (other.CompareTag("House") && GetComponent<Rigidbody>().velocity.magnitude >= speed)
         {
+            sound.GetComponent<DestroySound>().SoundPlay(transform.position);
             var house = GameManager.gameManager.destoryHouse.GetComponent<DestroyHouse>().houses;
             foreach (var elem in house)
             {
@@ -47,7 +50,6 @@ public class PlayerCollision : MonoBehaviour
             }
             Debug.Log(playerControl.houseKey);
             other.GetComponentInChildren<FraggedChild>().Damage(speed);
-
         }
 
     }
