@@ -29,6 +29,7 @@ public class InputManager : MonoBehaviour
                         onTouchToDrag.Invoke(direction);
                         startPos = endPos = Vector3.zero;
                         OffInputManager();
+                        GameManager.gameManager.UIManager.GetComponent<UIManager>().TutorialUIOff();
                     }
                     break;
             }

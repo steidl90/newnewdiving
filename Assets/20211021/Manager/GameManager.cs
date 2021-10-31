@@ -9,13 +9,14 @@ public class GameManager : MonoBehaviour
     public GameObject cameraManager;
     public GameObject player;
     public GameObject inputManager;
-    public GameObject UI;
+    public GameObject UIManager;
     public GameObject destoryHouse;
 
     private void Awake()
     {
         gameManager = this;
         player = GameObject.FindGameObjectWithTag("Player");
+        Time.timeScale = 0f;
     }
 
     public void Diving()
@@ -24,13 +25,15 @@ public class GameManager : MonoBehaviour
     }
     public void GameStart()
     {
-        var startButton = UI.transform.GetChild(1);
-        startButton.GetComponent<GameStart>().OffButton();
+        Time.timeScale = 1f;
+        UIManager.GetComponent<UIManager>().StartUIOff();
+        UIManager.GetComponent<UIManager>().TutorialUIOn();
         inputManager.GetComponent<InputManager>().OnInputManager();
+
     }
     public void OnReStartUI()
     {
-        UI.transform.GetChild(2).gameObject.SetActive(true);
+        UIManager.GetComponent<UIManager>().restart.SetActive(true);
     }
     public void ReStart()
     {

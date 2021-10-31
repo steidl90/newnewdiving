@@ -10,12 +10,12 @@ public class PlayerCollision : MonoBehaviour
         var playerControl = GameManager.gameManager.player.GetComponent<PlayerController>();
         playerControl.OnTrigger(other, transform.position);
         var speed = playerControl.IsReplay ? -1f : 29f;
-        Debug.Log($"{other.name}, {other.tag}, {GetComponent<Rigidbody>().velocity}, {GetComponent<Rigidbody>().velocity.magnitude}");
+        //Debug.Log($"{other.name}, {other.tag}, {GetComponent<Rigidbody>().velocity}, {GetComponent<Rigidbody>().velocity.magnitude}");
 
-        if (other.CompareTag("GoalPos") && GetComponent<Rigidbody>().velocity.magnitude >= speed / 5f)
+        if (other.CompareTag("GoalPos"))
         {
             //Time.timeScale = 0;
-            Debug.Log("∞Ò¿Œ");
+            //Debug.Log("∞Ò¿Œ");
         }
 
 

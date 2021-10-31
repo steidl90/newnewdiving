@@ -52,7 +52,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
         if (isDiving && !isReplay)
         {
             var playerData = new ReplayData();
@@ -101,9 +100,18 @@ public class PlayerController : MonoBehaviour
             endcheak = true;
             isStopTime = Time.time;
             var rag = GetComponent<CreatRagdoll>();
-            if (other.gameObject.layer == LayerMask.NameToLayer("Floor") &&
+            if (other.gameObject.layer == LayerMask.NameToLayer("Water") &&
                 isCollision)
             {
+                isCollision = false;
+                model.GetComponent<Rigidbody>().isKinematic = true;
+                animator.SetTrigger("SwimDown");
+                ReplayActive();
+            }
+            else if (other.gameObject.layer == LayerMask.NameToLayer("Floor") &&
+                isCollision)
+            {
+                Debug.Log(other.name);
                 rag.CreateRagdoll(force * ragdollPower, pos);
                 model.SetActive(false);
                 ReplayActive();
@@ -113,6 +121,7 @@ public class PlayerController : MonoBehaviour
             else if (other.gameObject.layer != LayerMask.NameToLayer("Water") &&
                      isCollision)
             {
+                Debug.Log(other.name);
                 rag.CreateRagdoll(force * ragdollPower, pos);
                 model.SetActive(false);
                 ReplayActive();
@@ -131,7 +140,7 @@ public class PlayerController : MonoBehaviour
             ModelOnRagdollOff();
             animator.SetTrigger("IsReplay");
             isCollision = true;
-            GameManager.gameManager.UI.transform.GetChild(0).gameObject.SetActive(true);
+            GameManager.gameManager.UIManager.GetComponent<UIManager>().ReplayUIOn();
             GameManager.gameManager.cameraManager.GetComponent<CameraManager>().OnReplay();
             isDiving = false;
             InitHouse();

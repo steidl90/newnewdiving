@@ -12,20 +12,18 @@ public class PlaneMove : MonoBehaviour
     private void Start()
     {
         StartPos = transform.position;
-        timer = (int)Time.time;
         town = transform.parent.parent.gameObject;
         pot = town.transform.localRotation * transform.localRotation;
-
     }
     private void FixedUpdate()
     {
         var isReplay = transform.parent.GetComponent<Replay>().isReplay;
         if (!isReplay)
         {
-            if (timer + 10 <= Time.time)
+            if (timer < Time.time)
             {
                 transform.position = StartPos;
-                timer = (int)Time.time;
+                timer = (int)Time.time + 10;
                 GetComponent<AudioSource>().Play();
             }
             transform.position += pot * Vector3.forward * speed * Time.deltaTime; 
