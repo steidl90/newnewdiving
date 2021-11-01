@@ -12,7 +12,8 @@ public class PlayerCollision : MonoBehaviour
 
         var speed = playerControl.IsReplay && Vars.stage > 5 ? -1f : 29f;
         // 렉돌로 변하는 용도
-        if (other.CompareTag("Plane") && GetComponent<Rigidbody>().velocity.magnitude >= speed / 5f)
+        if (other.CompareTag("Plane") && /*GetComponent<Rigidbody>().velocity.magnitude >= speed / 5f*/
+            Vars.stage > 8)
         {
             var planeMove = other.gameObject.transform.parent.GetComponent<PlaneMove>();
             planeMove.isCollision = true;
@@ -33,8 +34,8 @@ public class PlayerCollision : MonoBehaviour
             }
             Debug.Log(playerControl.houseKey);
         }
-
-        if (other.CompareTag("House") && GetComponent<Rigidbody>().velocity.magnitude >= speed)
+        if (other.CompareTag("House") && /*GetComponent<Rigidbody>().velocity.magnitude >= speed*/
+            Vars.stage > 4)
         {
             sound.GetComponent<DestroySound>().SoundPlay(transform.position);
             var house = GameManager.gameManager.destoryHouse.GetComponent<DestroyHouse>().houses;

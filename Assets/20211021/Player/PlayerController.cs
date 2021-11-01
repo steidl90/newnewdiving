@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (model.activeSelf)
+        if (model.activeSelf && rigid != null)
         {
             ragdollPower = rigid.velocity.magnitude;
             if (ragdollPower > 25f)
@@ -106,12 +106,12 @@ public class PlayerController : MonoBehaviour
             if (other.gameObject.layer == LayerMask.NameToLayer("Water") &&
                 isCollision)
             {
-                //model.GetComponent<Rigidbody>().isKinematic = true;
-                animator.SetTrigger("SwimDown");
-                if(!isReplay)
+                Debug.Log(isReplay);
+                if (!isReplay)
+                {
                     isSuccess = true;
-
-                model.SetActive(false);
+                    model.SetActive(false);
+                }
                 ReplayActive();
                 isCollision = false;
             }
@@ -129,7 +129,6 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log(other.name);
                 rag.CreateRagdoll(force * ragdollPower, pos);
-
                 model.SetActive(false);
                 ReplayActive();
                 isCollision = false;
@@ -165,7 +164,6 @@ public class PlayerController : MonoBehaviour
         if (count == 0)
         {
             var ui = GameManager.gameManager.uiManager.GetComponent<UIManager>();
-
             if(isSuccess)
             {
                 ui.OffReplayUI();
@@ -247,6 +245,5 @@ public class PlayerController : MonoBehaviour
         var house = GameManager.gameManager.destoryHouse.GetComponent<DestroyHouse>();
         house.HouseDestroy(houseKey);
         house.HouseInit(houseKey);
-
     }
 }

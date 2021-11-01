@@ -12,7 +12,8 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         var maincamera = GameManager.gameManager.cameraManager.GetComponent<CameraManager>().main.GetComponent<Camera>().enabled;
-        if (Input.touchCount == 1 && maincamera)
+        var ui = GameManager.gameManager.uiManager.GetComponent<UIManager>().settings.activeSelf;
+        if (Input.touchCount == 1 && maincamera && !ui)
         {
             var touch = Input.touches[0];
             switch (touch.phase)

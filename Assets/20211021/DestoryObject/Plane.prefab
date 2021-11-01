@@ -23502,6 +23502,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   town: {fileID: 0}
+  isCollision: 0
 --- !u!82 &1697998199
 AudioSource:
   m_ObjectHideFlags: 0

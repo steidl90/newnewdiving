@@ -5,7 +5,24 @@ using UnityEngine.SceneManagement;
 
 public static class Vars
 {
-    public static int stage = 1;
+    public static int stage = 0;
+    public enum Sector
+    {
+        TheChurch,
+        WayToBeach,
+        TheAlley,
+        HouseTriangle
+    }
+    public static Sector sector = 0;
+
+    public enum Mode
+    {
+        EasyOne,
+        EasyTwo,
+        HardOne,
+        HardTwo,
+    }
+    public static Mode mode = 0;
 }
 
 public class GameManager : MonoBehaviour
@@ -24,10 +41,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    public void Diving()
-    {
-        //inputManager.GetComponent<InputManager>().OffInputManager();
-    }
     public void GameStart()
     {
         Time.timeScale = 1f;
@@ -36,17 +49,16 @@ public class GameManager : MonoBehaviour
         inputManager.GetComponent<InputManager>().OnInputManager();
 
     }
-    public void OnReStartUI()
-    {
-        uiManager.GetComponent<UIManager>().restart.SetActive(true);
-    }
-    public void OnEndingUI()
-    {
-
-    }
+    
     public void ReStart()
     {
+        if((int)Vars.sector == 4 && Vars.stage == 5)
+        {
+            --Vars.mode;
+            Vars.sector = Vars.Sector.HouseTriangle;
+        }
         --Vars.stage;
+
         SceneManager.LoadScene(0);
     }
     public void NextStage()

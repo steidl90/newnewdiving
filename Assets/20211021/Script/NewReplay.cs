@@ -37,6 +37,7 @@ public class NewReplay : MonoBehaviour
                     }
                     break;
                 case ReplayData.Types.deActive:
+                    player.target.GetComponent<Rigidbody>().isKinematic = true;
                     player.target.SetActive(false);
                     break;
             }

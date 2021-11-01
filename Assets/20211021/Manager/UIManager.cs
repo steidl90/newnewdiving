@@ -72,4 +72,10 @@ public class UIManager : MonoBehaviour
     {
         ending.SetActive(false);
     }
+
+    public void TestStage()
+    {
+        Vars.sector = Vars.Sector.HouseTriangle;
+        Vars.stage = 4;
+    }
 }
