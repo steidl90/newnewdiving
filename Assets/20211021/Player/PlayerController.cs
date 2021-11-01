@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private bool endcheak = false;
     private bool initRag = true;
     private bool isDiving = false;
+    private bool isSuccess = false;
     [HideInInspector]
     public int houseKey;
     [HideInInspector]
@@ -106,6 +107,7 @@ public class PlayerController : MonoBehaviour
                 isCollision = false;
                 model.GetComponent<Rigidbody>().isKinematic = true;
                 animator.SetTrigger("SwimDown");
+                isSuccess = true;
                 ReplayActive();
             }
             else if (other.gameObject.layer == LayerMask.NameToLayer("Floor") &&
@@ -140,7 +142,7 @@ public class PlayerController : MonoBehaviour
             ModelOnRagdollOff();
             animator.SetTrigger("IsReplay");
             isCollision = true;
-            GameManager.gameManager.UIManager.GetComponent<UIManager>().ReplayUIOn();
+            GameManager.gameManager.UIManager.GetComponent<UIManager>().OnReplayUI();
             GameManager.gameManager.cameraManager.GetComponent<CameraManager>().OnReplay();
             isDiving = false;
             InitHouse();
@@ -158,7 +160,17 @@ public class PlayerController : MonoBehaviour
 
         if (count == 0)
         {
-            GameManager.gameManager.OnReStartUI();
+            var ui = GameManager.gameManager.UIManager.GetComponent<UIManager>();
+
+            if(isSuccess)
+            { 
+                ui.OnEndingUI();
+            }
+            else
+            {
+                ui.OnReStartUI();
+            }
+
             endcheak = false;
             isReplay = false;
             isCollision = false;

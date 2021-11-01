@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public GameObject replay;
     public GameObject restart;
     public GameObject settings;
+    public GameObject ending;
     public void ButtonOff()
     {
         var buttons = GetComponentsInChildren<Button>();
@@ -19,32 +20,56 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SettingUIOn()
+    public void OnSettingUI()
     {
         settings.SetActive(true);
     }
-    public void SettingUIOff()
+    public void OffSettingUI()
     {
         settings.SetActive(false);
     }
 
-    public void ReplayUIOn()
+    public void OnReplayUI()
     {
         replay.SetActive(true);
     }
+    public void OffReplayUI()
+    {
+        replay.SetActive(false);
+    }
 
-    public void StartUIOff()
+    public void OffStartUI()
     {
         start.SetActive(false);
     }
 
-    public void TutorialUIOn()
+    public void OnTutorialUI()
     {
         tutorial.SetActive(true);
     }
 
-    public void TutorialUIOff()
+    public void OffTutorialUI()
     {
         tutorial.SetActive(false);
+    }
+    
+    public void OnReStartUI()
+    {
+        restart.SetActive(true);
+    }
+
+    public void OffReStartUI()
+    {
+        restart.SetActive(false);
+    }
+
+    public void OnEndingUI()
+    {
+        ending.SetActive(true);
+    }
+
+    public void OffEndingUI()
+    {
+        ending.SetActive(false);
     }
 }

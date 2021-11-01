@@ -26,14 +26,18 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         Time.timeScale = 1f;
-        UIManager.GetComponent<UIManager>().StartUIOff();
-        UIManager.GetComponent<UIManager>().TutorialUIOn();
+        UIManager.GetComponent<UIManager>().OffStartUI();
+        UIManager.GetComponent<UIManager>().OnTutorialUI();
         inputManager.GetComponent<InputManager>().OnInputManager();
 
     }
     public void OnReStartUI()
     {
         UIManager.GetComponent<UIManager>().restart.SetActive(true);
+    }
+    public void OnEndingUI()
+    {
+
     }
     public void ReStart()
     {

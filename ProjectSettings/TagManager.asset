@@ -52,3 +52,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Paticle
+    uniqueID: 3284058617
+    locked: 0
+  - name: Bg
+    uniqueID: 200724827
+    locked: 0

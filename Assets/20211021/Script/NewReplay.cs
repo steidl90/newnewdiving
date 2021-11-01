@@ -35,7 +35,6 @@ public class NewReplay : MonoBehaviour
                         player.target.GetComponent<Rigidbody>().MovePosition(player.position);
                         player.target.GetComponent<Rigidbody>().MoveRotation(player.rotation);
                     }
-                    
                     break;
                 case ReplayData.Types.deActive:
                     player.target.SetActive(false);
