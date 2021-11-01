@@ -108,11 +108,11 @@ public class PlayerController : MonoBehaviour
             {
                 //model.GetComponent<Rigidbody>().isKinematic = true;
                 animator.SetTrigger("SwimDown");
-                isSuccess = true;
+                if(!isReplay)
+                    isSuccess = true;
 
                 model.SetActive(false);
                 ReplayActive();
-
                 isCollision = false;
             }
             else if (other.gameObject.layer == LayerMask.NameToLayer("Floor") &&
@@ -122,7 +122,6 @@ public class PlayerController : MonoBehaviour
                 rag.CreateRagdoll(force * ragdollPower, pos);
                 model.SetActive(false);
                 ReplayActive();
-
                 isCollision = false;
             }
             else if (other.gameObject.layer != LayerMask.NameToLayer("Water") &&
@@ -133,7 +132,6 @@ public class PlayerController : MonoBehaviour
 
                 model.SetActive(false);
                 ReplayActive();
-
                 isCollision = false;
             }
         }

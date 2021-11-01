@@ -5,20 +5,20 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
     public GameObject sound;
-    private void OnTriggerEnter(Collider other) // 렉돌로 변하는 용도
+    private void OnTriggerEnter(Collider other)
     {
         var playerControl = GameManager.gameManager.player.GetComponent<PlayerController>();
         playerControl.OnTrigger(other, transform.position);
 
-        //var speed = 29f;
-
         var speed = playerControl.IsReplay && Vars.stage > 5 ? -1f : 29f;
-
+        // 렉돌로 변하는 용도
         if (other.CompareTag("Plane") && GetComponent<Rigidbody>().velocity.magnitude >= speed / 5f)
         {
+            var planeMove = other.gameObject.transform.parent.GetComponent<PlaneMove>();
+            planeMove.isCollision = true;
+            planeMove.speed = 0f;
             sound.GetComponent<DestroySound>().SoundPlay(transform.position);
             other.gameObject.transform.parent.GetComponentInChildren<FraggedChild>().Damage(speed);
-            other.gameObject.transform.parent.GetComponent<PlaneMove>().speed = 0f;
             var childs = other.gameObject.transform.parent.GetComponentsInChildren<FraggedChild>();
             foreach (var child in childs)
             {

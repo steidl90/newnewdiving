@@ -6,19 +6,23 @@ public class PlaneMove : MonoBehaviour
 {
     public float speed = 15f;
     public GameObject town;
+    public bool isCollision;
     private Vector3 StartPos;
     private Quaternion pot;
     private int timer;
+    
     private void Start()
     {
         StartPos = transform.position;
         town = transform.parent.parent.gameObject;
         pot = town.transform.localRotation * transform.localRotation;
+        isCollision = false;
     }
     private void FixedUpdate()
     {
         var isReplay = transform.parent.GetComponent<Replay>().isReplay;
-        if (!isReplay)
+        //var isCollision = transform.parent.GetComponent<Replay>().;
+        if (!isReplay && !isCollision)
         {
             if (timer < Time.time)
             {
