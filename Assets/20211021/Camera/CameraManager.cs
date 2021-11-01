@@ -6,10 +6,7 @@ public class CameraManager : MonoBehaviour
 {
     public GameObject main;
     public GameObject sub;
-
-    private void Start()
-    {
-    }
+    public GameObject result;
 
     public void OnReplay()
     {

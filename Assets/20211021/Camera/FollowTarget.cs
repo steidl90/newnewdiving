@@ -16,7 +16,8 @@ public class FollowTarget : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(!target.activeSelf)
+        var isSuccess = GameManager.gameManager.player.GetComponent<PlayerController>().isSuccess;
+        if (!target.activeSelf && !isSuccess)
         {
             target = targetRagdoll;
         }

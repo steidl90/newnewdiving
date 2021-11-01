@@ -11,7 +11,6 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        var direction = Vector3.zero;
         var maincamera = GameManager.gameManager.cameraManager.GetComponent<CameraManager>().main.GetComponent<Camera>().enabled;
         if (Input.touchCount == 1 && maincamera)
         {
@@ -23,13 +22,13 @@ public class InputManager : MonoBehaviour
                     break;
                 case TouchPhase.Ended:
                     endPos = Camera.main.ScreenToViewportPoint(touch.position);
-                    direction = endPos - startPos;
+                    var direction = endPos - startPos;
                     if (endPos.y - startPos.y > 0)
                     {
                         onTouchToDrag.Invoke(direction);
                         startPos = endPos = Vector3.zero;
                         OffInputManager();
-                        GameManager.gameManager.UIManager.GetComponent<UIManager>().OffTutorialUI();
+                        GameManager.gameManager.uiManager.GetComponent<UIManager>().OffTutorialUI();
                     }
                     break;
             }

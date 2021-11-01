@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public static class Vars
+{
+    public static int stage = 1;
+}
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager;
     public GameObject cameraManager;
     public GameObject player;
     public GameObject inputManager;
-    public GameObject UIManager;
+    public GameObject uiManager;
     public GameObject destoryHouse;
 
     private void Awake()
@@ -26,14 +31,14 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         Time.timeScale = 1f;
-        UIManager.GetComponent<UIManager>().OffStartUI();
-        UIManager.GetComponent<UIManager>().OnTutorialUI();
+        uiManager.GetComponent<UIManager>().OffStartUI();
+        uiManager.GetComponent<UIManager>().OnTutorialUI();
         inputManager.GetComponent<InputManager>().OnInputManager();
 
     }
     public void OnReStartUI()
     {
-        UIManager.GetComponent<UIManager>().restart.SetActive(true);
+        uiManager.GetComponent<UIManager>().restart.SetActive(true);
     }
     public void OnEndingUI()
     {
@@ -41,8 +46,14 @@ public class GameManager : MonoBehaviour
     }
     public void ReStart()
     {
+        --Vars.stage;
         SceneManager.LoadScene(0);
     }
+    public void NextStage()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     public void ReSetHouse()
     {
         destoryHouse.GetComponentInChildren<FraggedController>().ReleaseFrags();

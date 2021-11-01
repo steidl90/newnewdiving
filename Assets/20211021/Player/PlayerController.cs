@@ -20,7 +20,9 @@ public class PlayerController : MonoBehaviour
     private bool endcheak = false;
     private bool initRag = true;
     private bool isDiving = false;
-    private bool isSuccess = false;
+    [HideInInspector]
+    public bool isSuccess = false;
+
     [HideInInspector]
     public int houseKey;
     [HideInInspector]
@@ -104,11 +106,14 @@ public class PlayerController : MonoBehaviour
             if (other.gameObject.layer == LayerMask.NameToLayer("Water") &&
                 isCollision)
             {
-                isCollision = false;
-                model.GetComponent<Rigidbody>().isKinematic = true;
+                //model.GetComponent<Rigidbody>().isKinematic = true;
                 animator.SetTrigger("SwimDown");
                 isSuccess = true;
+
+                model.SetActive(false);
                 ReplayActive();
+
+                isCollision = false;
             }
             else if (other.gameObject.layer == LayerMask.NameToLayer("Floor") &&
                 isCollision)
@@ -125,6 +130,7 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log(other.name);
                 rag.CreateRagdoll(force * ragdollPower, pos);
+
                 model.SetActive(false);
                 ReplayActive();
 
@@ -142,7 +148,7 @@ public class PlayerController : MonoBehaviour
             ModelOnRagdollOff();
             animator.SetTrigger("IsReplay");
             isCollision = true;
-            GameManager.gameManager.UIManager.GetComponent<UIManager>().OnReplayUI();
+            GameManager.gameManager.uiManager.GetComponent<UIManager>().OnReplayUI();
             GameManager.gameManager.cameraManager.GetComponent<CameraManager>().OnReplay();
             isDiving = false;
             InitHouse();
@@ -160,10 +166,11 @@ public class PlayerController : MonoBehaviour
 
         if (count == 0)
         {
-            var ui = GameManager.gameManager.UIManager.GetComponent<UIManager>();
+            var ui = GameManager.gameManager.uiManager.GetComponent<UIManager>();
 
             if(isSuccess)
-            { 
+            {
+                ui.OffReplayUI();
                 ui.OnEndingUI();
             }
             else
@@ -188,7 +195,7 @@ public class PlayerController : MonoBehaviour
 
     private void CheakReplay()
     {
-        var currentY = 0f;
+        float currentY;
         if(model.activeSelf)
         {
             currentY = model.transform.position.y;
