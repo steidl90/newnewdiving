@@ -12,18 +12,7 @@ public class UIManager : MonoBehaviour
     public GameObject restart;
     public GameObject settings;
     public GameObject ending;
-    
-    
-
-
-    public void ButtonOff()
-    {
-        var buttons = GetComponentsInChildren<Button>();
-        foreach (var button in buttons)
-        {
-            button.gameObject.SetActive(false);
-        }
-    }
+   
 
     public void OnSettingUI()
     {

@@ -34,6 +34,7 @@ public class InputManager : MonoBehaviour
                             startPos = endPos = Vector3.zero;
                             OffInputManager();
                             GameManager.gameManager.uiManager.GetComponent<UIManager>().arrow.SetActive(false);
+                            GameManager.gameManager.uiManager.GetComponent<UIManager>().tutorial.SetActive(false);
                         }
                         startSetting = false;
                     }

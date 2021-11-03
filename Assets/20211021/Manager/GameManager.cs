@@ -17,12 +17,14 @@ public static class Vars
 
     public enum Mode
     {
-        EasyOne,
-        EasyTwo,
+        NormalOne,
+        NormalTwo,
         HardOne,
         HardTwo,
     }
     public static Mode mode = 0;
+
+    
 }
 
 public class GameManager : MonoBehaviour
@@ -41,21 +43,23 @@ public class GameManager : MonoBehaviour
         gameManager = this;
         player = GameObject.FindGameObjectWithTag("Player");
         Time.timeScale = 0f;
+
+        StageData data = SaveData.LoadStage();
+        Vars.stage = data.stage;
+        Vars.sector = (Vars.Sector)data.sector;
+        Vars.mode = (Vars.Mode)data.mode;
     }
 
     public void GameStart()
     {
         Time.timeScale = 1f;
         uiManager.GetComponent<UIManager>().OffStartUI();
-        if (Vars.stage < 3 && Vars.sector.Equals(Vars.Sector.TheChurch) && Vars.mode.Equals(Vars.Mode.EasyOne))
+        if (Vars.stage < 3 && Vars.sector.Equals(Vars.Sector.TheChurch) && Vars.mode.Equals(Vars.Mode.NormalOne))
         {
             uiManager.GetComponent<UIManager>().OnTutorialUI();
-            StartCoroutine(CoTuto()); 
+            //StartCoroutine(CoTuto()); 
         }
-        else
-        {
-            inputManager.GetComponent<InputManager>().OnInputManager();
-        }
+        inputManager.GetComponent<InputManager>().OnInputManager();
     }
 
     public void ReStart()
@@ -80,6 +84,7 @@ public class GameManager : MonoBehaviour
                 Vars.mode++;
             }
         }
+        SaveData.SaveStage(Vars.stage, (int)Vars.sector, (int)Vars.mode);
         SceneManager.LoadScene(0);
     }
 

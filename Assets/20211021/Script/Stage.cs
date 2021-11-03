@@ -14,14 +14,14 @@ public class Stage : MonoBehaviour
     {
         switch (Vars.mode)
         {
-            case Vars.Mode.EasyOne:
+            case Vars.Mode.NormalOne:
                 if (Vars.stage > 5)
                 {
                     Vars.stage = 1;
                     Vars.sector++;
                 }
                 break;
-            case Vars.Mode.EasyTwo:
+            case Vars.Mode.NormalTwo:
                 if (Vars.stage > 10)
                 {
                     Vars.stage = 6;

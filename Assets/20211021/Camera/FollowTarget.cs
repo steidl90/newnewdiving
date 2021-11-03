@@ -32,7 +32,7 @@ public class FollowTarget : MonoBehaviour
     }
     public void TargetFollow()
     {
-        var sec = 5f * Time.deltaTime;
+        var sec = 10f * Time.deltaTime;
         var targetPos = target.transform.position + -transform.forward * distance;
         var newPos = Vector3.Lerp(transform.position, targetPos, sec);
         transform.position = newPos;
