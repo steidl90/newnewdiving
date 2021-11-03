@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public GameObject arrow;
     public GameObject start;
     public GameObject tutorial;
     public GameObject replay;
@@ -46,6 +47,7 @@ public class UIManager : MonoBehaviour
     public void OnTutorialUI()
     {
         tutorial.SetActive(true);
+        arrow.SetActive(true);
     }
 
     public void OffTutorialUI()
@@ -75,7 +77,16 @@ public class UIManager : MonoBehaviour
 
     public void TestStage()
     {
+        //Vars.mode = Vars.Mode.EasyTwo;
+        //Vars.sector++;
+        //Vars.stage += 3;
+
+        //if ((int)Vars.sector > 3)
+        //    Vars.sector = 0;
+        //Vars.stage = 1;
+
+        Vars.mode = Vars.Mode.EasyTwo;
         Vars.sector = Vars.Sector.HouseTriangle;
-        Vars.stage = 4;
+        Vars.stage = 5;
     }
 }

@@ -8,6 +8,10 @@ public class FollowTarget : MonoBehaviour
     public GameObject targetModel;
     public GameObject targetRagdoll;
     public float distance = 10f;
+    private float timer = 0f;
+    public Vector3 pos;
+
+    public bool isFinish = false;
 
     public void Start()
     {
@@ -21,7 +25,10 @@ public class FollowTarget : MonoBehaviour
         {
             target = targetRagdoll;
         }
-        TargetFollow();
+        if (isFinish)
+            FinishRotation();
+        else
+            TargetFollow();
     }
     public void TargetFollow()
     {
@@ -30,6 +37,28 @@ public class FollowTarget : MonoBehaviour
         var newPos = Vector3.Lerp(transform.position, targetPos, sec);
         transform.position = newPos;
     }
-    
-    
+
+    public void FinishRotation()
+    {
+        //var sec = 10f * Time.deltaTime;
+        //var targetPos = target.transform.position + -transform.forward * distance;
+        //var newPos = Vector3.Lerp(transform.position, targetPos, sec);
+        //transform.position = newPos;
+        timer += Time.deltaTime;
+        if (timer < 0.5f)
+        {
+            transform.LookAt(pos);
+            transform.RotateAround(pos, -Vector3.up, 360f * Time.deltaTime);
+        }
+        else if(timer > 0.5f)
+        {
+            target.SetActive(true);
+            target.GetComponent<Animator>().SetTrigger("Finish");
+            var CoVictory = target.transform.parent.GetComponent<PlayerController>().CoVictory();
+            StartCoroutine(CoVictory);
+            isFinish = false;
+        }
+    }
+
+
 }

@@ -8,5 +8,8 @@ public class DestroySound : MonoBehaviour
     {
         transform.position = pos;
         GetComponent<AudioSource>().Play();
+#if UNITY_ANDROID
+        Handheld.Vibrate();
+#endif
     }
 }

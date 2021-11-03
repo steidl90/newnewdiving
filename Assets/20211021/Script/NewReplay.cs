@@ -37,6 +37,8 @@ public class NewReplay : MonoBehaviour
                     }
                     break;
                 case ReplayData.Types.deActive:
+                    player.target.transform.position = new Vector3(player.target.transform.position.x, player.target.transform.position.y - 1.5f, player.target.transform.position.z);
+                    GameManager.gameManager.cameraManager.GetComponent<CameraManager>().sub.GetComponent<FollowTarget>().pos = player.target.transform.position;
                     player.target.GetComponent<Rigidbody>().isKinematic = true;
                     player.target.SetActive(false);
                     break;

@@ -7,12 +7,13 @@ public class PlayerController : MonoBehaviour
 {
     public float power;
     public float y;
+    private float timer = 0f;
 
     private Animator animator;
     private Rigidbody rigid;
     public GameObject model;
     public GameObject ragdoll;
-    public GameObject effect;
+    public GameObject[] effect;
     private Vector3 force;
 
     private bool isReplay;
@@ -79,7 +80,7 @@ public class PlayerController : MonoBehaviour
             if (isReplay)
             {
                 ReplaySetting();
-                effect.GetComponent<EnterWaterEffect>().isSplash = true;
+                effect[(int)Vars.sector].GetComponent<EnterWaterEffect>().isSplash = true;
                 GetComponent<NewReplay>().OnReplay();
             }
         }
@@ -106,7 +107,6 @@ public class PlayerController : MonoBehaviour
             if (other.gameObject.layer == LayerMask.NameToLayer("Water") &&
                 isCollision)
             {
-                Debug.Log(isReplay);
                 if (!isReplay)
                 {
                     isSuccess = true;
@@ -118,7 +118,6 @@ public class PlayerController : MonoBehaviour
             else if (other.gameObject.layer == LayerMask.NameToLayer("Floor") &&
                 isCollision)
             {
-                Debug.Log(other.name);
                 rag.CreateRagdoll(force * ragdollPower, pos);
                 model.SetActive(false);
                 ReplayActive();
@@ -127,7 +126,6 @@ public class PlayerController : MonoBehaviour
             else if (other.gameObject.layer != LayerMask.NameToLayer("Water") &&
                      isCollision)
             {
-                Debug.Log(other.name);
                 rag.CreateRagdoll(force * ragdollPower, pos);
                 model.SetActive(false);
                 ReplayActive();
@@ -167,7 +165,13 @@ public class PlayerController : MonoBehaviour
             if(isSuccess)
             {
                 ui.OffReplayUI();
-                ui.OnEndingUI();
+                //ui.OnEndingUI();
+                effect[(int)Vars.sector].GetComponent<EnterWaterEffect>().splashFlag = 0f;
+                effect[(int)Vars.sector].GetComponent<EnterWaterEffect>().BigSplash.SetActive(false);
+                effect[(int)Vars.sector].GetComponent<EnterWaterEffect>().StopAllCoroutines();
+
+                var sub = GameManager.gameManager.cameraManager.GetComponent<CameraManager>().sub;
+                sub.GetComponent<FollowTarget>().isFinish = true;
             }
             else
             {
@@ -245,5 +249,18 @@ public class PlayerController : MonoBehaviour
         var house = GameManager.gameManager.destoryHouse.GetComponent<DestroyHouse>();
         house.HouseDestroy(houseKey);
         house.HouseInit(houseKey);
+    }
+
+    public IEnumerator CoVictory()
+    {
+        var pos = new Vector3(model.transform.position.x, model.transform.position.y + 1.5f, model.transform.position.z);
+        while (timer < 2f)
+        {
+            timer += Time.deltaTime * 5f;
+            model.transform.position = Vector3.Lerp(model.transform.position, pos, timer);
+            yield return null;
+        }
+        var ui = GameManager.gameManager.uiManager.GetComponent<UIManager>();
+        ui.OnEndingUI();
     }
 }

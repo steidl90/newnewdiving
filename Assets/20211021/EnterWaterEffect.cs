@@ -6,11 +6,10 @@ public class EnterWaterEffect : MonoBehaviour
 {
     public GameObject BigSplash;
     public bool isSplash;
-    private float splashFlag = 0f;
+    public float splashFlag = 0f;
 
     private void OnTriggerEnter(Collider other)
     {
-        
         if (other.gameObject.layer == LayerMask.NameToLayer("Player") && isSplash)
         {
             isSplash = false;

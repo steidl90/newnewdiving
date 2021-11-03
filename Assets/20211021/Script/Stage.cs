@@ -13,8 +13,6 @@ public class Stage : MonoBehaviour
     private void Start()
     {
         Vars.stage++;
-        if ((int)Vars.sector > 3)
-            Vars.sector = 0;
         switch (Vars.mode)
         {
             case Vars.Mode.EasyOne:
@@ -46,7 +44,8 @@ public class Stage : MonoBehaviour
                 }
                 break;
         }
-
+        if ((int)Vars.sector > 3)
+            Vars.sector = 0;
         Debug.Log($"{Vars.sector}, stage: {Vars.stage}, {Vars.mode}");
 
         switch (Vars.sector)
@@ -59,6 +58,11 @@ public class Stage : MonoBehaviour
                     terrains[i].SetActive(false);
                 }
                 terrains[0].SetActive(true);
+                if ((int)Vars.mode > 1)
+                {
+                    terrains[0].transform.GetChild(2).gameObject.transform.localPosition = new Vector3(129.84f, 40.05f, 121.21f);
+                }
+                
                 break;
             case Vars.Sector.WayToBeach:
                 posX = 15.2f;
@@ -68,6 +72,10 @@ public class Stage : MonoBehaviour
                     terrains[i].SetActive(false);
                 }
                 terrains[1].SetActive(true);
+                if ((int)Vars.mode > 1)
+                {
+                    terrains[1].transform.GetChild(2).gameObject.transform.localPosition = new Vector3(142.629f, 40.05f, 143.951f);
+                }
                 break;
             case Vars.Sector.TheAlley:
                 posX = -10.8f;
@@ -77,6 +85,10 @@ public class Stage : MonoBehaviour
                     terrains[i].SetActive(false);
                 }
                 terrains[2].SetActive(true);
+                if ((int)Vars.mode > 1)
+                {
+                    terrains[2].transform.GetChild(2).gameObject.transform.localPosition = new Vector3(123.1106f, 40.05f, 136.117f);
+                }
                 break;
             case Vars.Sector.HouseTriangle:
                 posX = -18f;
@@ -86,10 +98,9 @@ public class Stage : MonoBehaviour
                     terrains[i].SetActive(false);
                 }
                 terrains[3].SetActive(true);
-                if(Vars.stage == 5) // 재 시작시 모드를 낮춰야 함
-                { 
-                    Vars.mode++;
-                    Vars.sector++;
+                if ((int)Vars.mode > 1)
+                {
+                    terrains[3].transform.GetChild(2).gameObject.transform.localPosition = new Vector3(114.48f, 40.05f, 112.68f);
                 }
                 break;
         }
