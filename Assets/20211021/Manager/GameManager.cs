@@ -44,10 +44,14 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         Time.timeScale = 0f;
 
-        StageData data = SaveData.LoadStage();
-        Vars.stage = data.stage;
-        Vars.sector = (Vars.Sector)data.sector;
-        Vars.mode = (Vars.Mode)data.mode;
+        if (SaveData.LoadStage() != null)
+        {
+            StageData data = SaveData.LoadStage();
+            
+            Vars.stage = data.stage;
+            Vars.sector = (Vars.Sector)data.sector;
+            Vars.mode = (Vars.Mode)data.mode;
+        }
     }
 
     public void GameStart()

@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageData : MonoBehaviour
+[System.Serializable]
+public class StageData
 {
-    public int stage;
-    public int sector;
-    public int mode;
+    public int stage = 1;
+    public int sector = 0;
+    public int mode = 0;
 
     public StageData(int stage, int sector, int mode)
     {

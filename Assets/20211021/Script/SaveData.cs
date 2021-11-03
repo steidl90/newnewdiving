@@ -7,7 +7,7 @@ public class SaveData : MonoBehaviour
     public static void SaveStage(int stage, int sector, int mode)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/stage:";
+        string path = Application.persistentDataPath + "/stage.fun";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         StageData data = new StageData(stage, sector, mode);
@@ -18,7 +18,7 @@ public class SaveData : MonoBehaviour
 
     public static StageData LoadStage()
     {
-        string path = Application.persistentDataPath + "/stage:";
+        string path = Application.persistentDataPath + "/stage.fun";
         if(File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -31,7 +31,7 @@ public class SaveData : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Save file not found in" + path);
+            //Debug.LogError("Save file not found in" + path);
             return null;
         }
     }
