@@ -12,6 +12,10 @@ public class UIManager : MonoBehaviour
     public GameObject restart;
     public GameObject settings;
     public GameObject ending;
+    
+    
+
+
     public void ButtonOff()
     {
         var buttons = GetComponentsInChildren<Button>();
@@ -24,10 +28,14 @@ public class UIManager : MonoBehaviour
     public void OnSettingUI()
     {
         settings.SetActive(true);
+        GameManager.gameManager.inputManager.SetActive(false);
+
     }
     public void OffSettingUI()
     {
         settings.SetActive(false);
+        if (!start.activeSelf && !tutorial.activeSelf)
+            GameManager.gameManager.inputManager.SetActive(true);
     }
 
     public void OnReplayUI()
@@ -73,20 +81,5 @@ public class UIManager : MonoBehaviour
     public void OffEndingUI()
     {
         ending.SetActive(false);
-    }
-
-    public void TestStage()
-    {
-        //Vars.mode = Vars.Mode.EasyTwo;
-        //Vars.sector++;
-        //Vars.stage += 3;
-
-        //if ((int)Vars.sector > 3)
-        //    Vars.sector = 0;
-        //Vars.stage = 1;
-
-        Vars.mode = Vars.Mode.EasyTwo;
-        Vars.sector = Vars.Sector.HouseTriangle;
-        Vars.stage = 5;
     }
 }

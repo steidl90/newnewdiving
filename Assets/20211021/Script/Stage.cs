@@ -10,9 +10,8 @@ public class Stage : MonoBehaviour
     private float posX;
     private float posZ;
     
-    private void Start()
+    public void Start()
     {
-        Vars.stage++;
         switch (Vars.mode)
         {
             case Vars.Mode.EasyOne:
@@ -44,9 +43,9 @@ public class Stage : MonoBehaviour
                 }
                 break;
         }
+
         if ((int)Vars.sector > 3)
             Vars.sector = 0;
-        Debug.Log($"{Vars.sector}, stage: {Vars.stage}, {Vars.mode}");
 
         switch (Vars.sector)
         {
@@ -62,7 +61,7 @@ public class Stage : MonoBehaviour
                 {
                     terrains[0].transform.GetChild(2).gameObject.transform.localPosition = new Vector3(129.84f, 40.05f, 121.21f);
                 }
-                
+
                 break;
             case Vars.Sector.WayToBeach:
                 posX = 15.2f;

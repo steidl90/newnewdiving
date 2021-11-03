@@ -15,6 +15,9 @@ TagManager:
   - House
   - Houses
   - Plane
+  - Collide
+  - Slider
+  - Umbrella
   layers:
   - Default
   - TransparentFX

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TestText : MonoBehaviour
 {
-    private void Update()
+    private void Start()
     {
         var text = GetComponent<Text>();
         text.text = $"{Vars.sector}, {Vars.stage}";

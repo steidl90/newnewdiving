@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public static class Vars
 {
-    public static int stage = 0;
+    public static int stage = 1;
     public enum Sector
     {
         TheChurch,
@@ -60,21 +60,25 @@ public class GameManager : MonoBehaviour
 
     public void ReStart()
     {
-        //if((int)Vars.sector == 4 && Vars.stage == 5)
-        //{
-        //    --Vars.mode;
-        //    Vars.sector = Vars.Sector.HouseTriangle;
-        //}
-        --Vars.stage;
-
         SceneManager.LoadScene(0);
     }
     public void NextStage()
     {
-        if (Vars.stage == 5)
+        Vars.stage++;
+        if (Vars.stage > 5 && (int)Vars.mode % 2 == 0)
         {
-            if ((int)Vars.sector == 3)
+            if ((int)Vars.sector > 2)
+            {
                 Vars.mode++;
+                Vars.sector = 0;
+            }
+        }
+        else if (Vars.stage > 10)
+        {
+            if ((int)Vars.sector > 2)
+            {
+                Vars.mode++;
+            }
         }
         SceneManager.LoadScene(0);
     }

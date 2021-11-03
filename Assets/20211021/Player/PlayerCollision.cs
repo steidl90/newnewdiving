@@ -32,7 +32,6 @@ public class PlayerCollision : MonoBehaviour
                 if (elem.Value == other.transform.parent.gameObject)
                     playerControl.houseKey = elem.Key;
             }
-            Debug.Log(playerControl.houseKey);
         }
         if (other.CompareTag("House") && /*GetComponent<Rigidbody>().velocity.magnitude >= speed*/
             Vars.stage > 4)
@@ -44,9 +43,7 @@ public class PlayerCollision : MonoBehaviour
                 if (elem.Value == other.gameObject)
                     playerControl.houseKey = elem.Key;
             }
-            Debug.Log(playerControl.houseKey);
             other.GetComponentInChildren<FraggedChild>().Damage(speed);
         }
-
     }
 }

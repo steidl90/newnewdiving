@@ -8,6 +8,7 @@ public class InputManager : MonoBehaviour
     public UnityEvent<Vector3> onTouchToDrag;
     private Vector3 startPos;
     private Vector3 endPos;
+    private bool startSetting = false;
 
     private void Update()
     {
@@ -20,16 +21,21 @@ public class InputManager : MonoBehaviour
             {
                 case TouchPhase.Began:
                     startPos = Camera.main.ScreenToViewportPoint(touch.position);
+                    startSetting = true;
                     break;
                 case TouchPhase.Ended:
-                    endPos = Camera.main.ScreenToViewportPoint(touch.position);
-                    var direction = endPos - startPos;
-                    if (endPos.y - startPos.y > 0)
+                    if (startSetting)
                     {
-                        onTouchToDrag.Invoke(direction);
-                        startPos = endPos = Vector3.zero;
-                        OffInputManager();
-                        GameManager.gameManager.uiManager.GetComponent<UIManager>().arrow.SetActive(false);
+                        endPos = Camera.main.ScreenToViewportPoint(touch.position);
+                        var direction = endPos - startPos;
+                        if (endPos.y - startPos.y > 0)
+                        {
+                            onTouchToDrag.Invoke(direction);
+                            startPos = endPos = Vector3.zero;
+                            OffInputManager();
+                            GameManager.gameManager.uiManager.GetComponent<UIManager>().arrow.SetActive(false);
+                        }
+                        startSetting = false;
                     }
                     break;
             }
