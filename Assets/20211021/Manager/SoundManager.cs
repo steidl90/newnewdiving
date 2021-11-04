@@ -10,7 +10,7 @@ public class SoundManager : MonoBehaviour
     private Slider volume;
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        
         volume = GameManager.gameManager.uiManager.GetComponent<UIManager>().settings.transform.GetComponentInChildren<Slider>();
         volume.value = soundVolume;
     }

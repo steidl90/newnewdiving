@@ -43,7 +43,6 @@ public class GameManager : MonoBehaviour
         gameManager = this;
         player = GameObject.FindGameObjectWithTag("Player");
         Time.timeScale = 0f;
-
         if (SaveData.LoadStage() != null)
         {
             StageData data = SaveData.LoadStage();
@@ -90,6 +89,15 @@ public class GameManager : MonoBehaviour
         }
         SaveData.SaveStage(Vars.stage, (int)Vars.sector, (int)Vars.mode);
         SceneManager.LoadScene(0);
+    }
+
+    public void TestButton()
+    {
+        if (Vars.stage > 1)
+        {
+            Vars.stage--;
+            SaveData.SaveStage(Vars.stage, (int)Vars.sector, (int)Vars.mode);
+        }
     }
 
     public void ReSetHouse()

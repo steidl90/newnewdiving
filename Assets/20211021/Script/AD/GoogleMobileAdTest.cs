@@ -25,6 +25,7 @@ public class GoogleMobileAdTest : MonoBehaviour
 
     public void OnClickInit()
     {
+        // 추후 삭제 예정
         List<string> deviceIds = new List<string>();
         deviceIds.Add("D3335E0DDB922E49F5B55B5B63E67854");
         RequestConfiguration requestConfiguration = new RequestConfiguration
@@ -32,6 +33,7 @@ public class GoogleMobileAdTest : MonoBehaviour
             .SetTestDeviceIds(deviceIds)
             .build();
         MobileAds.SetRequestConfiguration(requestConfiguration);
+        //end
         MobileAds.Initialize(initStatus => { });
     }
 
@@ -44,7 +46,7 @@ public class GoogleMobileAdTest : MonoBehaviour
         interstitial = new InterstitialAd(interstitial1Id);
         this.interstitial.OnAdLoaded += HandleOnAdLoaded;
         this.interstitial.OnAdOpening += HandleOnAdOpened;
-
+        //interstitial.OnAdClosed
         AdRequest request = new AdRequest.Builder().Build();
         interstitial.LoadAd(request);
     }
