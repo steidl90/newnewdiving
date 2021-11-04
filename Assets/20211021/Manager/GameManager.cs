@@ -64,13 +64,15 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         Time.timeScale = 1f;
-        uiManager.GetComponent<UIManager>().OffStartUI();
+        var ui = uiManager.GetComponent<UIManager>();
+        ui.OffStartUI();
         if (Vars.stage < 3 && Vars.sector.Equals(Vars.Sector.TheChurch) && Vars.mode.Equals(Vars.Mode.NormalOne))
         {
-            uiManager.GetComponent<UIManager>().OnTutorialUI();
+            ui.OnTutorialUI();
             //StartCoroutine(CoTuto()); 
         }
         inputManager.GetComponent<InputManager>().OnInputManager();
+        
     }
 
     public void ReStart()

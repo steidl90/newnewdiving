@@ -12,7 +12,18 @@ public class UIManager : MonoBehaviour
     public GameObject restart;
     public GameObject settings;
     public GameObject ending;
-   
+    private static bool firstStart = true;
+    
+
+    private void Start()
+    {
+        if (firstStart)
+        {
+            start.transform.GetChild(1).gameObject.SetActive(true);
+            firstStart = false;
+        }
+    }
+
 
     public void OnSettingUI()
     {

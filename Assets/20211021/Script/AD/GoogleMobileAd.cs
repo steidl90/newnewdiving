@@ -31,8 +31,6 @@ public class GoogleMobileAd : Singleton<GoogleMobileAd>
 
         AdRequest request = new AdRequest.Builder().Build();
         nextInterstitial.LoadAd(request);
-
-        
     }
     public void ReStartRequestInterstitial()
     {
@@ -67,12 +65,10 @@ public class GoogleMobileAd : Singleton<GoogleMobileAd>
 
     public void HandleOnAdLoaded(object sender, EventArgs args)
     {
-        MonoBehaviour.print("로드 완료");
     }
 
     public void HandleOnAdOpened(object sender, EventArgs args)
     {
-        MonoBehaviour.print("오픈 완료");
     }
 
     public void HandleOnAdClosedNext(object sender, EventArgs args)
