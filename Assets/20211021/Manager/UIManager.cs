@@ -71,4 +71,15 @@ public class UIManager : MonoBehaviour
     {
         ending.SetActive(false);
     }
+
+
+    public void ReStart()
+    {
+        GoogleMobileAd.Instance.ReStartAd();
+    }
+
+    public void NextStage()
+    {
+        GoogleMobileAd.Instance.NextStageAd();
+    }
 }

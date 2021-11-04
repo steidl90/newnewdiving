@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public static class Vars
 {
     public static int stage = 1;
+    public static int totalstage = 1;
     public enum Sector
     {
         TheChurch,
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
     public GameObject inputManager;
     public GameObject uiManager;
     public GameObject destoryHouse;
+    public static bool isStart = true;
 
     private float timer;
 
@@ -48,8 +50,14 @@ public class GameManager : MonoBehaviour
             StageData data = SaveData.LoadStage();
             
             Vars.stage = data.stage;
+            Vars.totalstage = data.totalStage;
             Vars.sector = (Vars.Sector)data.sector;
             Vars.mode = (Vars.Mode)data.mode;
+        }
+        if (isStart)
+        {
+            GoogleMobileAd.Instance.Init();
+            isStart = false;
         }
     }
 
@@ -72,6 +80,7 @@ public class GameManager : MonoBehaviour
     public void NextStage()
     {
         Vars.stage++;
+        Vars.totalstage++;
         if (Vars.stage > 5 && (int)Vars.mode % 2 == 0)
         {
             if ((int)Vars.sector > 2)
@@ -87,17 +96,28 @@ public class GameManager : MonoBehaviour
                 Vars.mode++;
             }
         }
-        SaveData.SaveStage(Vars.stage, (int)Vars.sector, (int)Vars.mode);
+        Debug.Log($"{Vars.stage},{Vars.totalstage}, {(int)Vars.sector}, {(int)Vars.mode}");
+        SaveData.SaveStage(Vars.stage, Vars.totalstage, (int)Vars.sector, (int)Vars.mode);
         SceneManager.LoadScene(0);
     }
 
     public void TestButton()
     {
+        if (Vars.stage < 2)
+        {
+            if (Vars.sector == 0 && (int)Vars.mode > 0)
+                Vars.mode--;
+            if ((int)Vars.sector > 0)
+                Vars.sector--;
+        }
         if (Vars.stage > 1)
         {
             Vars.stage--;
-            SaveData.SaveStage(Vars.stage, (int)Vars.sector, (int)Vars.mode);
+            Vars.totalstage--;
         }
+        
+        Debug.Log($"{Vars.stage},{Vars.totalstage}, {(int)Vars.sector}, {(int)Vars.mode}");
+        SaveData.SaveStage(Vars.stage, Vars.totalstage, (int)Vars.sector, (int)Vars.mode);
     }
 
     public void ReSetHouse()

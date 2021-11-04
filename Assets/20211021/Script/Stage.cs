@@ -7,6 +7,7 @@ public class Stage : MonoBehaviour
     public GameObject[] obj;
     public float height;
     public GameObject[] terrains;
+    public GameObject endingCamera;
     private float posX;
     private float posZ;
     
@@ -61,6 +62,7 @@ public class Stage : MonoBehaviour
                 {
                     terrains[0].transform.GetChild(2).gameObject.transform.localPosition = new Vector3(129.84f, 40.05f, 121.21f);
                 }
+                endingCamera.transform.position = new Vector3(3.97f, 3.74f, 4.17f);
 
                 break;
             case Vars.Sector.WayToBeach:
@@ -75,6 +77,7 @@ public class Stage : MonoBehaviour
                 {
                     terrains[1].transform.GetChild(2).gameObject.transform.localPosition = new Vector3(142.629f, 40.05f, 143.951f);
                 }
+                endingCamera.transform.position = new Vector3(16.54f, 3.2f, 25.2f);
                 break;
             case Vars.Sector.TheAlley:
                 posX = -10.8f;
@@ -88,6 +91,7 @@ public class Stage : MonoBehaviour
                 {
                     terrains[2].transform.GetChild(2).gameObject.transform.localPosition = new Vector3(123.1106f, 40.05f, 136.117f);
                 }
+                endingCamera.transform.position = new Vector3(-1.8f, 3.24f, 17.8f);
                 break;
             case Vars.Sector.HouseTriangle:
                 posX = -18f;
@@ -101,6 +105,7 @@ public class Stage : MonoBehaviour
                 {
                     terrains[3].transform.GetChild(2).gameObject.transform.localPosition = new Vector3(114.48f, 40.05f, 112.68f);
                 }
+                endingCamera.transform.position = new Vector3(-10.05f, 3.21f, -5.99f);
                 break;
         }
 
