@@ -120,6 +120,7 @@ public class GameManager : MonoBehaviour
         
         Debug.Log($"{Vars.stage},{Vars.totalstage}, {(int)Vars.sector}, {(int)Vars.mode}");
         SaveData.SaveStage(Vars.stage, Vars.totalstage, (int)Vars.sector, (int)Vars.mode);
+        SceneManager.LoadScene(0);
     }
 
     public void ReSetHouse()

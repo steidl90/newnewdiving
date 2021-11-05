@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using GoogleMobileAds.Api;
+using System.Collections.Generic;
 
 public class GoogleMobileAd : Singleton<GoogleMobileAd>
 {
@@ -12,6 +13,14 @@ public class GoogleMobileAd : Singleton<GoogleMobileAd>
 
     public void Init()
     {
+        List<string> deviceIds = new List<string>();
+        deviceIds.Add("D3335E0DDB922E49F5B55B5B63E67854");
+        RequestConfiguration requestConfiguration = new RequestConfiguration
+            .Builder()
+            .SetTestDeviceIds(deviceIds)
+            .build();
+        MobileAds.SetRequestConfiguration(requestConfiguration);
+
         MobileAds.Initialize(initStatus => {
             ReStartRequestInterstitial();
             NextRequestInterstitial();
@@ -65,10 +74,12 @@ public class GoogleMobileAd : Singleton<GoogleMobileAd>
 
     public void HandleOnAdLoaded(object sender, EventArgs args)
     {
+        print("±¤°í ¿äÃ» ¿Ï·á");
     }
 
     public void HandleOnAdOpened(object sender, EventArgs args)
     {
+        print("±¤°í ¿ÀÇÂ ¿Ï·á");
     }
 
     public void HandleOnAdClosedNext(object sender, EventArgs args)
