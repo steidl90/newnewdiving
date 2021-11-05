@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
         if (Vars.stage < 3 && Vars.sector.Equals(Vars.Sector.TheChurch) && Vars.mode.Equals(Vars.Mode.NormalOne))
         {
             ui.OnTutorialUI();
-            //StartCoroutine(CoTuto()); 
+            //StartCoroutine(CoTuto());
         }
         inputManager.GetComponent<InputManager>().OnInputManager();
         

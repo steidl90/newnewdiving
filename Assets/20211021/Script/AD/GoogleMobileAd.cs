@@ -15,6 +15,7 @@ public class GoogleMobileAd : Singleton<GoogleMobileAd>
     {
         List<string> deviceIds = new List<string>();
         deviceIds.Add("D3335E0DDB922E49F5B55B5B63E67854");
+        deviceIds.Add("6355DBB3179CEFA7D2305B1D67D59210");
         RequestConfiguration requestConfiguration = new RequestConfiguration
             .Builder()
             .SetTestDeviceIds(deviceIds)
