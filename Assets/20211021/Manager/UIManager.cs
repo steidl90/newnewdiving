@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public GameObject restart;
     public GameObject settings;
     public GameObject ending;
+    public GameObject stageText;
     private static bool firstStart = true;
     
 
@@ -61,8 +62,9 @@ public class UIManager : MonoBehaviour
     public void OffTutorialUI()
     {
         tutorial.SetActive(false);
+        arrow.SetActive(false);
     }
-    
+
     public void OnReStartUI()
     {
         restart.SetActive(true);
@@ -81,6 +83,11 @@ public class UIManager : MonoBehaviour
     public void OffEndingUI()
     {
         ending.SetActive(false);
+    }
+
+    public void OnStageTextUI()
+    {
+        stageText.SetActive(true);
     }
 
 

@@ -7,6 +7,10 @@ public static class Vars
 {
     public static int stage = 1;
     public static int totalstage = 1;
+    public static float soundVolume = 1f;
+    public static float angle = 0f;
+    public static bool isVibration = true;
+    public static Color sunColor = Color.white;
     public enum Sector
     {
         TheChurch,
@@ -42,6 +46,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep; // ½º¸¶Æ®Æù È­¸é ²¨Áü ¹æÁö
         gameManager = this;
         player = GameObject.FindGameObjectWithTag("Player");
         Time.timeScale = 0f;
@@ -53,6 +58,10 @@ public class GameManager : MonoBehaviour
             Vars.totalstage = data.totalStage;
             Vars.sector = (Vars.Sector)data.sector;
             Vars.mode = (Vars.Mode)data.mode;
+            Vars.soundVolume = data.soundVolume;
+            Vars.isVibration = data.isVibration;
+            Vars.sunColor = new Color(data.r, data.g, data.b);
+            Vars.angle = data.angle;
         }
         if (isStart)
         {
@@ -83,6 +92,7 @@ public class GameManager : MonoBehaviour
     {
         Vars.stage++;
         Vars.totalstage++;
+        Vars.angle += 15f;
         if (Vars.stage > 5 && (int)Vars.mode % 2 == 0)
         {
             if ((int)Vars.sector > 2)
@@ -98,8 +108,12 @@ public class GameManager : MonoBehaviour
                 Vars.mode++;
             }
         }
-        Debug.Log($"{Vars.stage},{Vars.totalstage}, {(int)Vars.sector}, {(int)Vars.mode}");
-        SaveData.SaveStage(Vars.stage, Vars.totalstage, (int)Vars.sector, (int)Vars.mode);
+        if (Vars.sunColor.g * 255f >= 15f)
+            Vars.sunColor.g -= 15f / 255f;
+        if (Vars.sunColor.b * 255f >= 30f)
+            Vars.sunColor.b -= 30f / 255f;
+
+        SaveData.SaveStage(Vars.stage, Vars.totalstage, (int)Vars.sector, (int)Vars.mode, Vars.isVibration, Vars.soundVolume, Vars.sunColor.r, Vars.sunColor.g, Vars.sunColor.b, Vars.angle);
         SceneManager.LoadScene(0);
     }
 
@@ -118,8 +132,7 @@ public class GameManager : MonoBehaviour
             Vars.totalstage--;
         }
         
-        Debug.Log($"{Vars.stage},{Vars.totalstage}, {(int)Vars.sector}, {(int)Vars.mode}");
-        SaveData.SaveStage(Vars.stage, Vars.totalstage, (int)Vars.sector, (int)Vars.mode);
+        SaveData.SaveStage(Vars.stage, Vars.totalstage, (int)Vars.sector, (int)Vars.mode, Vars.isVibration, Vars.soundVolume, Vars.sunColor.r, Vars.sunColor.g, Vars.sunColor.b, Vars.angle);
         SceneManager.LoadScene(0);
     }
 

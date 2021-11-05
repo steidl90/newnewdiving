@@ -13,8 +13,8 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         var maincamera = GameManager.gameManager.cameraManager.GetComponent<CameraManager>().main.GetComponent<Camera>().enabled;
-        var ui = GameManager.gameManager.uiManager.GetComponent<UIManager>().settings.activeSelf;
-        if (Input.touchCount == 1 && maincamera && !ui)
+        var ui = GameManager.gameManager.uiManager.GetComponent<UIManager>();
+        if (Input.touchCount == 1 && maincamera && !ui.settings.activeSelf)
         {
             var touch = Input.touches[0];
             switch (touch.phase)
@@ -33,8 +33,7 @@ public class InputManager : MonoBehaviour
                             onTouchToDrag.Invoke(direction);
                             startPos = endPos = Vector3.zero;
                             OffInputManager();
-                            GameManager.gameManager.uiManager.GetComponent<UIManager>().arrow.SetActive(false);
-                            GameManager.gameManager.uiManager.GetComponent<UIManager>().tutorial.SetActive(false);
+                            ui.OffTutorialUI();
                         }
                         startSetting = false;
                     }

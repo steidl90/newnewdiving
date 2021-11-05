@@ -5,13 +5,12 @@ using UnityEngine.UI;
 
 public class DestroySound : MonoBehaviour
 {
-    private static bool isVibration = true;
     public GameObject[] VibrateOn;
     public GameObject[] VibrateOff;
 
     private void Start()
     {
-        if(isVibration)
+        if(Vars.isVibration)
         {
             OnVibrate();
         }
@@ -26,14 +25,14 @@ public class DestroySound : MonoBehaviour
         transform.position = pos;
         GetComponent<AudioSource>().Play();
 #if UNITY_ANDROID
-        if (isVibration)
+        if (Vars.isVibration)
             Handheld.Vibrate();
 #endif
     }
 
     public void OnVibrate()
     {
-        isVibration = true;
+        Vars.isVibration = true;
         VibrateOn[0].gameObject.SetActive(true);
         VibrateOn[1].gameObject.SetActive(false);
         VibrateOff[0].gameObject.SetActive(false);
@@ -41,7 +40,7 @@ public class DestroySound : MonoBehaviour
     }
     public void OffVibrate()
     {
-        isVibration = false;
+        Vars.isVibration = false;
         VibrateOn[0].gameObject.SetActive(false);
         VibrateOn[1].gameObject.SetActive(true);
         VibrateOff[0].gameObject.SetActive(true);
