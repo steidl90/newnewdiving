@@ -81,7 +81,6 @@ public class GameManager : MonoBehaviour
             //StartCoroutine(CoTuto());
         }
         inputManager.GetComponent<InputManager>().OnInputManager();
-        
     }
 
     public void ReStart()

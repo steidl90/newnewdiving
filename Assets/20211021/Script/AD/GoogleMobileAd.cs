@@ -35,8 +35,8 @@ public class GoogleMobileAd : Singleton<GoogleMobileAd>
             nextInterstitial.Destroy();
         }
         nextInterstitial = new InterstitialAd(interstitial1Id1);
-        nextInterstitial.OnAdLoaded += HandleOnAdLoaded;
-        nextInterstitial.OnAdOpening += HandleOnAdOpened;
+        //nextInterstitial.OnAdLoaded += HandleOnAdLoaded;
+        //nextInterstitial.OnAdOpening += HandleOnAdOpened;
         nextInterstitial.OnAdClosed += HandleOnAdClosedNext;
 
         AdRequest request = new AdRequest.Builder().Build();
@@ -49,8 +49,8 @@ public class GoogleMobileAd : Singleton<GoogleMobileAd>
             reStartInterstitial.Destroy();
         }
         reStartInterstitial = new InterstitialAd(interstitial1Id2);
-        reStartInterstitial.OnAdLoaded += HandleOnAdLoaded;
-        reStartInterstitial.OnAdOpening += HandleOnAdOpened;
+        //reStartInterstitial.OnAdLoaded += HandleOnAdLoaded;
+        //reStartInterstitial.OnAdOpening += HandleOnAdOpened;
         reStartInterstitial.OnAdClosed += HandleOnAdClosedRe;
 
         AdRequest request2 = new AdRequest.Builder().Build();
@@ -73,15 +73,13 @@ public class GoogleMobileAd : Singleton<GoogleMobileAd>
         }
     }
 
-    public void HandleOnAdLoaded(object sender, EventArgs args)
-    {
-        print("±¤°í ¿äÃ» ¿Ï·á");
-    }
+    //public void HandleOnAdLoaded(object sender, EventArgs args)
+    //{
+    //}
 
-    public void HandleOnAdOpened(object sender, EventArgs args)
-    {
-        print("±¤°í ¿ÀÇÂ ¿Ï·á");
-    }
+    //public void HandleOnAdOpened(object sender, EventArgs args)
+    //{
+    //}
 
     public void HandleOnAdClosedNext(object sender, EventArgs args)
     {

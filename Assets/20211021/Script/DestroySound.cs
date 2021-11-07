@@ -45,6 +45,11 @@ public class DestroySound : MonoBehaviour
         VibrateOn[1].gameObject.SetActive(true);
         VibrateOff[0].gameObject.SetActive(true);
         VibrateOff[1].gameObject.SetActive(false);
+    }
 
+    public void OnDestroy()
+    {
+        SaveData.SaveStage(Vars.stage, Vars.totalstage, (int)Vars.sector, (int)Vars.mode, Vars.isVibration, Vars.soundVolume, Vars.sunColor.r, Vars.sunColor.g, Vars.sunColor.b, Vars.angle);
+        Resources.UnloadUnusedAssets();
     }
 }

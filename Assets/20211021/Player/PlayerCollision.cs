@@ -15,6 +15,10 @@ public class PlayerCollision : MonoBehaviour
         if (other.CompareTag("Plane") && /*GetComponent<Rigidbody>().velocity.magnitude >= speed / 5f*/
             Vars.stage > 8)
         {
+            for (int i = 0; i < other.transform.childCount; i++)
+            {
+                Destroy(other.transform.GetChild(i).gameObject);
+            }
             var planeMove = other.gameObject.transform.parent.GetComponent<PlaneMove>();
             planeMove.isCollision = true;
             planeMove.speed = 0f;

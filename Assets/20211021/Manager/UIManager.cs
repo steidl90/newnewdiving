@@ -23,6 +23,8 @@ public class UIManager : MonoBehaviour
             start.transform.GetChild(1).gameObject.SetActive(true);
             firstStart = false;
         }
+        else
+            OnStageTextUI();
     }
 
 
