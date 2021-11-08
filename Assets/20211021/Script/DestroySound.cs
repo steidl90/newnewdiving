@@ -50,6 +50,5 @@ public class DestroySound : MonoBehaviour
     public void OnDestroy()
     {
         SaveData.SaveStage(Vars.stage, Vars.totalstage, (int)Vars.sector, (int)Vars.mode, Vars.isVibration, Vars.soundVolume, Vars.sunColor.r, Vars.sunColor.g, Vars.sunColor.b, Vars.angle);
-        Resources.UnloadUnusedAssets();
     }
 }

@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Resources.UnloadUnusedAssets(); // 사용중이지 않은 에셋 해제 하기
         Screen.sleepTimeout = SleepTimeout.NeverSleep; // 스마트폰 화면 꺼짐 방지
         gameManager = this;
         player = GameObject.FindGameObjectWithTag("Player");

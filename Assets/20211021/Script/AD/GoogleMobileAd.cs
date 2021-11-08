@@ -13,14 +13,14 @@ public class GoogleMobileAd : Singleton<GoogleMobileAd>
 
     public void Init()
     {
-        List<string> deviceIds = new List<string>();
-        deviceIds.Add("D3335E0DDB922E49F5B55B5B63E67854");
-        deviceIds.Add("6355DBB3179CEFA7D2305B1D67D59210");
-        RequestConfiguration requestConfiguration = new RequestConfiguration
-            .Builder()
-            .SetTestDeviceIds(deviceIds)
-            .build();
-        MobileAds.SetRequestConfiguration(requestConfiguration);
+        //List<string> deviceIds = new List<string>();
+        //deviceIds.Add("D3335E0DDB922E49F5B55B5B63E67854");
+        //deviceIds.Add("6355DBB3179CEFA7D2305B1D67D59210");
+        //RequestConfiguration requestConfiguration = new RequestConfiguration
+        //    .Builder()
+        //    .SetTestDeviceIds(deviceIds)
+        //    .build();
+        //MobileAds.SetRequestConfiguration(requestConfiguration);
 
         MobileAds.Initialize(initStatus => {
             ReStartRequestInterstitial();
@@ -59,17 +59,28 @@ public class GoogleMobileAd : Singleton<GoogleMobileAd>
 
     public void NextStageAd()
     {
+        Debug.Log(nextInterstitial.IsLoaded());
         if (nextInterstitial.IsLoaded())
         {
             nextInterstitial.Show();
+        }
+        else
+        { 
+            GameManager.gameManager.NextStage();
         }
     }
 
     public void ReStartAd()
     {
+        Debug.Log(reStartInterstitial.IsLoaded());
+
         if (reStartInterstitial.IsLoaded())
         {
             reStartInterstitial.Show();
+        }
+        else
+        {
+            GameManager.gameManager.ReStart();
         }
     }
 
@@ -92,4 +103,6 @@ public class GoogleMobileAd : Singleton<GoogleMobileAd>
         ReStartRequestInterstitial();
         GameManager.gameManager.ReStart();
     }
+
+
 }
