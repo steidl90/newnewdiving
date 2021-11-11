@@ -117,38 +117,19 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void TestButton()
-    {
-        if (Vars.stage < 2)
-        {
-            if (Vars.sector == 0 && (int)Vars.mode > 0)
-                Vars.mode--;
-            if ((int)Vars.sector > 0)
-                Vars.sector--;
-        }
-        if (Vars.stage > 1)
-        {
-            Vars.stage--;
-            Vars.totalstage--;
-        }
-        
-        SaveData.SaveStage(Vars.stage, Vars.totalstage, (int)Vars.sector, (int)Vars.mode, Vars.isVibration, Vars.soundVolume, Vars.sunColor.r, Vars.sunColor.g, Vars.sunColor.b, Vars.angle);
-        SceneManager.LoadScene(0);
-    }
-
     public void ReSetHouse()
     {
         destoryHouse.GetComponentInChildren<FraggedController>().ReleaseFrags();
     }
 
-    private IEnumerator CoTuto()
-    {
-        while (timer < 2.9f)
-        {
-            timer += Time.deltaTime;
-            yield return null; 
-        }
-        uiManager.GetComponent<UIManager>().OffTutorialUI();
-        inputManager.GetComponent<InputManager>().OnInputManager();
-    }
+    //private IEnumerator CoTuto()
+    //{
+    //    while (timer < 2.9f)
+    //    {
+    //        timer += Time.deltaTime;
+    //        yield return null; 
+    //    }
+    //    uiManager.GetComponent<UIManager>().OffTutorialUI();
+    //    inputManager.GetComponent<InputManager>().OnInputManager();
+    //}
 }
