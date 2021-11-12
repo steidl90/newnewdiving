@@ -15,13 +15,4 @@ public class LightManager : MonoBehaviour
             lampLights.SetActive(true);
         }
     }
-    //private void Update()
-    //{
-    //    if (lampOn)
-    //    {
-    //        lampLights.SetActive(true);
-    //    }
-    //    else
-    //        lampLights.SetActive(false);
-    //}
 }

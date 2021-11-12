@@ -4,27 +4,25 @@ using UnityEngine;
 
 public class LightRotation : MonoBehaviour
 {
-    private float timer;
-
     private void Awake()
     {
-        if (Vars.angle > 345f)
+        if (StaticVariable.angle > 345f)
         {
-            Vars.angle = 0f;
+            StaticVariable.angle = 0f;
         }
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x + Vars.angle, transform.eulerAngles.y, transform.eulerAngles.z);
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x + StaticVariable.angle, transform.eulerAngles.y, transform.eulerAngles.z);
 
         var light = transform.parent.GetComponent<LightManager>();
         var mainLight = light.mainLight.GetComponent<Light>();
 
-        light.lampOn = (Vars.angle >= 135f && Vars.angle <= 315f) ? true : false;
+        light.lampOn = (StaticVariable.angle >= 135f && StaticVariable.angle <= 315f) ? true : false;
         if (!light.lampOn)
         {
-            mainLight.color = Vars.sunColor;
+            mainLight.color = StaticVariable.sunColor;
         }
         else
         {
-            mainLight.color = Vars.sunColor = Color.white;
+            mainLight.color = StaticVariable.sunColor = Color.white;
         }
     }
 }

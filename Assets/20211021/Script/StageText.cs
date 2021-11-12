@@ -9,6 +9,6 @@ public class StageText : MonoBehaviour
     {
         var text = GetComponent<TextMeshProUGUI>();
         var height = GameManager.gameManager.GetComponent<Stage>().height;
-        text.text = $"{Vars.totalstage} Stage, {Vars.stage * height} m";
+        text.text = $"{StaticVariable.totalstage} Stage, {StaticVariable.stage * height} m";
     }
 }

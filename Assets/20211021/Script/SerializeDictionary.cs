@@ -8,7 +8,7 @@ public class SerializeDictionary<K,V>:Dictionary<K,V>,ISerializationCallbackRece
     [SerializeField]
     List<K> keys = new List<K>();
     [SerializeField]
-    List<V> values = new List<V>(0);
+    List<V> values = new List<V>();
     public void OnBeforeSerialize()
     {
         keys.Clear();

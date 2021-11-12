@@ -13,44 +13,44 @@ public class Stage : MonoBehaviour
     
     public void Start()
     {
-        switch (Vars.mode)
+        switch (StaticVariable.mode)
         {
-            case Vars.Mode.NormalOne:
-                if (Vars.stage > 5)
+            case StaticVariable.Mode.NormalOne:
+                if (StaticVariable.stage > 5)
                 {
-                    Vars.stage = 1;
-                    Vars.sector++;
+                    StaticVariable.stage = 1;
+                    StaticVariable.sector++;
                 }
                 break;
-            case Vars.Mode.NormalTwo:
-                if (Vars.stage > 10)
+            case StaticVariable.Mode.NormalTwo:
+                if (StaticVariable.stage > 10)
                 {
-                    Vars.stage = 6;
-                    Vars.sector++;
+                    StaticVariable.stage = 6;
+                    StaticVariable.sector++;
                 }
                 break;
-            case Vars.Mode.HardOne:
-                if (Vars.stage > 5)
+            case StaticVariable.Mode.HardOne:
+                if (StaticVariable.stage > 5)
                 {
-                    Vars.stage = 1;
-                    Vars.sector++;
+                    StaticVariable.stage = 1;
+                    StaticVariable.sector++;
                 }
                 break;
-            case Vars.Mode.HardTwo:
-                if (Vars.stage > 10)
+            case StaticVariable.Mode.HardTwo:
+                if (StaticVariable.stage > 10)
                 {
-                    Vars.stage = 6;
-                    Vars.sector++;
+                    StaticVariable.stage = 6;
+                    StaticVariable.sector++;
                 }
                 break;
         }
 
-        if ((int)Vars.sector > 3)
-            Vars.sector = 0;
+        if ((int)StaticVariable.sector > 3)
+            StaticVariable.sector = 0;
 
-        switch (Vars.sector)
+        switch (StaticVariable.sector)
         {
-            case Vars.Sector.TheChurch:
+            case StaticVariable.Sector.TheChurch:
                 posX = 0f;
                 posZ = 0f;
                 for (int i = 0; i < terrains.Length; i++)
@@ -58,14 +58,14 @@ public class Stage : MonoBehaviour
                     terrains[i].SetActive(false);
                 }
                 terrains[0].SetActive(true);
-                if ((int)Vars.mode > 1)
+                if ((int)StaticVariable.mode > 1)
                 {
                     terrains[0].transform.GetChild(2).gameObject.transform.localPosition = new Vector3(129.84f, 40.05f, 121.21f);
                 }
                 endingCamera.transform.position = new Vector3(3.97f, 3.74f, 4.17f);
 
                 break;
-            case Vars.Sector.WayToBeach:
+            case StaticVariable.Sector.WayToBeach:
                 posX = 15.2f;
                 posZ = 23.32f;
                 for (int i = 0; i < terrains.Length; i++)
@@ -73,13 +73,13 @@ public class Stage : MonoBehaviour
                     terrains[i].SetActive(false);
                 }
                 terrains[1].SetActive(true);
-                if ((int)Vars.mode > 1)
+                if ((int)StaticVariable.mode > 1)
                 {
                     terrains[1].transform.GetChild(2).gameObject.transform.localPosition = new Vector3(142.629f, 40.05f, 143.951f);
                 }
                 endingCamera.transform.position = new Vector3(16.54f, 3.2f, 25.2f);
                 break;
-            case Vars.Sector.TheAlley:
+            case StaticVariable.Sector.TheAlley:
                 posX = -10.8f;
                 posZ = 18.56f;
                 for (int i = 0; i < terrains.Length; i++)
@@ -87,13 +87,13 @@ public class Stage : MonoBehaviour
                     terrains[i].SetActive(false);
                 }
                 terrains[2].SetActive(true);
-                if ((int)Vars.mode > 1)
+                if ((int)StaticVariable.mode > 1)
                 {
                     terrains[2].transform.GetChild(2).gameObject.transform.localPosition = new Vector3(123.1106f, 40.05f, 136.117f);
                 }
                 endingCamera.transform.position = new Vector3(-1.8f, 3.24f, 17.8f);
                 break;
-            case Vars.Sector.HouseTriangle:
+            case StaticVariable.Sector.HouseTriangle:
                 posX = -18f;
                 posZ = -4.8f;
                 for (int i = 0; i < terrains.Length; i++)
@@ -101,7 +101,7 @@ public class Stage : MonoBehaviour
                     terrains[i].SetActive(false);
                 }
                 terrains[3].SetActive(true);
-                if ((int)Vars.mode > 1)
+                if ((int)StaticVariable.mode > 1)
                 {
                     terrains[3].transform.GetChild(2).gameObject.transform.localPosition = new Vector3(114.48f, 40.05f, 112.68f);
                 }
@@ -111,7 +111,7 @@ public class Stage : MonoBehaviour
 
         for (int i = 0; i < obj.Length; i++)
         {
-            obj[i].transform.position = new Vector3(obj[i].transform.position.x + posX, height * Vars.stage, obj[i].transform.position.z + posZ);
+            obj[i].transform.position = new Vector3(obj[i].transform.position.x + posX, height * StaticVariable.stage, obj[i].transform.position.z + posZ);
         }
     }
 }

@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
             if (isReplay)
             {
                 ReplaySetting();
-                effect[(int)Vars.sector].GetComponent<EnterWaterEffect>().isSplash = true;
+                effect[(int)StaticVariable.sector].GetComponent<EnterWaterEffect>().isSplash = true;
                 GetComponent<NewReplay>().OnReplay();
             }
         }
@@ -166,9 +166,9 @@ public class PlayerController : MonoBehaviour
             {
                 ui.OffReplayUI();
                 //ui.OnEndingUI();
-                effect[(int)Vars.sector].GetComponent<EnterWaterEffect>().splashFlag = 0f;
-                effect[(int)Vars.sector].GetComponent<EnterWaterEffect>().BigSplash.SetActive(false);
-                effect[(int)Vars.sector].GetComponent<EnterWaterEffect>().StopAllCoroutines();
+                effect[(int)StaticVariable.sector].GetComponent<EnterWaterEffect>().splashFlag = 0f;
+                effect[(int)StaticVariable.sector].GetComponent<EnterWaterEffect>().BigSplash.SetActive(false);
+                effect[(int)StaticVariable.sector].GetComponent<EnterWaterEffect>().StopAllCoroutines();
 
                 var sub = GameManager.gameManager.cameraManager.GetComponent<CameraManager>().sub;
                 sub.GetComponent<FollowTarget>().isFinish = true;

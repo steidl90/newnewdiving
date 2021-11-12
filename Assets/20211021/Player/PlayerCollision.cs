@@ -10,10 +10,10 @@ public class PlayerCollision : MonoBehaviour
         var playerControl = GameManager.gameManager.player.GetComponent<PlayerController>();
         playerControl.OnTrigger(other, transform.position);
 
-        var speed = playerControl.IsReplay && Vars.stage > 5 ? -1f : 29f;
+        var speed = playerControl.IsReplay && StaticVariable.stage > 5 ? -1f : 29f;
         // 렉돌로 변하는 용도
         if (other.CompareTag("Plane") && /*GetComponent<Rigidbody>().velocity.magnitude >= speed / 5f*/
-            Vars.stage > 8)
+            StaticVariable.stage > 8)
         {
             for (int i = 0; i < other.transform.childCount; i++)
             {
@@ -38,7 +38,7 @@ public class PlayerCollision : MonoBehaviour
             }
         }
         if (other.CompareTag("House") && /*GetComponent<Rigidbody>().velocity.magnitude >= speed*/
-            Vars.stage > 4)
+            StaticVariable.stage > 4)
         {
             sound.GetComponent<DestroySound>().SoundPlay(transform.position);
             var house = GameManager.gameManager.destoryHouse.GetComponent<DestroyHouse>().houses;

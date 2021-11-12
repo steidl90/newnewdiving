@@ -10,7 +10,7 @@ public class DestroySound : MonoBehaviour
 
     private void Start()
     {
-        if(Vars.isVibration)
+        if(StaticVariable.isVibration)
         {
             OnVibrate();
         }
@@ -25,14 +25,14 @@ public class DestroySound : MonoBehaviour
         transform.position = pos;
         GetComponent<AudioSource>().Play();
 #if UNITY_ANDROID
-        if (Vars.isVibration)
+        if (StaticVariable.isVibration)
             Handheld.Vibrate();
 #endif
     }
 
     public void OnVibrate()
     {
-        Vars.isVibration = true;
+        StaticVariable.isVibration = true;
         VibrateOn[0].gameObject.SetActive(true);
         VibrateOn[1].gameObject.SetActive(false);
         VibrateOff[0].gameObject.SetActive(false);
@@ -40,7 +40,7 @@ public class DestroySound : MonoBehaviour
     }
     public void OffVibrate()
     {
-        Vars.isVibration = false;
+        StaticVariable.isVibration = false;
         VibrateOn[0].gameObject.SetActive(false);
         VibrateOn[1].gameObject.SetActive(true);
         VibrateOff[0].gameObject.SetActive(true);
@@ -49,6 +49,6 @@ public class DestroySound : MonoBehaviour
 
     public void OnDestroy()
     {
-        SaveData.SaveStage(Vars.stage, Vars.totalstage, (int)Vars.sector, (int)Vars.mode, Vars.isVibration, Vars.soundVolume, Vars.sunColor.r, Vars.sunColor.g, Vars.sunColor.b, Vars.angle);
+        SaveData.SaveStage(StaticVariable.stage, StaticVariable.totalstage, (int)StaticVariable.sector, (int)StaticVariable.mode, StaticVariable.isVibration, StaticVariable.soundVolume, StaticVariable.sunColor.r, StaticVariable.sunColor.g, StaticVariable.sunColor.b, StaticVariable.angle);
     }
 }

@@ -8,15 +8,15 @@ public class SoundManager : MonoBehaviour
     private void Awake()
     {
         volume = GameManager.gameManager.uiManager.GetComponent<UIManager>().settings.transform.GetComponentInChildren<Slider>();
-        volume.value = Vars.soundVolume;
+        volume.value = StaticVariable.soundVolume;
     }
 
     public void VolumeChange()
     {
-        Vars.soundVolume = volume.value;
+        StaticVariable.soundVolume = volume.value;
         for (int i = 0; i < totalSound.Length; i++)
         {
-            totalSound[i].volume = Vars.soundVolume;
+            totalSound[i].volume = StaticVariable.soundVolume;
         }
     }
 

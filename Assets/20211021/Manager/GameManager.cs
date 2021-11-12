@@ -3,34 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public static class Vars
-{
-    public static int stage = 1;
-    public static int totalstage = 1;
-    public static float soundVolume = 1f;
-    public static float angle = 0f;
-    public static bool isVibration = true;
-    public static Color sunColor = Color.white;
-    public enum Sector
-    {
-        TheChurch,
-        WayToBeach,
-        TheAlley,
-        HouseTriangle
-    }
-    public static Sector sector = 0;
-
-    public enum Mode
-    {
-        NormalOne,
-        NormalTwo,
-        HardOne,
-        HardTwo,
-    }
-    public static Mode mode = 0;
-
-    
-}
 
 public class GameManager : MonoBehaviour
 {
@@ -55,14 +27,14 @@ public class GameManager : MonoBehaviour
         {
             StageData data = SaveData.LoadStage();
             
-            Vars.stage = data.stage;
-            Vars.totalstage = data.totalStage;
-            Vars.sector = (Vars.Sector)data.sector;
-            Vars.mode = (Vars.Mode)data.mode;
-            Vars.soundVolume = data.soundVolume;
-            Vars.isVibration = data.isVibration;
-            Vars.sunColor = new Color(data.r, data.g, data.b);
-            Vars.angle = data.angle;
+            StaticVariable.stage = data.stage;
+            StaticVariable.totalstage = data.totalStage;
+            StaticVariable.sector = (StaticVariable.Sector)data.sector;
+            StaticVariable.mode = (StaticVariable.Mode)data.mode;
+            StaticVariable.soundVolume = data.soundVolume;
+            StaticVariable.isVibration = data.isVibration;
+            StaticVariable.sunColor = new Color(data.r, data.g, data.b);
+            StaticVariable.angle = data.angle;
         }
         if (isStart)
         {
@@ -76,7 +48,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         var ui = uiManager.GetComponent<UIManager>();
         ui.OffStartUI();
-        if (Vars.stage < 3 && Vars.sector.Equals(Vars.Sector.TheChurch) && Vars.mode.Equals(Vars.Mode.NormalOne))
+        if (StaticVariable.stage < 3 && StaticVariable.sector.Equals(StaticVariable.Sector.TheChurch) && StaticVariable.mode.Equals(StaticVariable.Mode.NormalOne))
         {
             ui.OnTutorialUI();
             //StartCoroutine(CoTuto());
@@ -90,30 +62,30 @@ public class GameManager : MonoBehaviour
     }
     public void NextStage()
     {
-        Vars.stage++;
-        Vars.totalstage++;
-        Vars.angle += 15f;
-        if (Vars.stage > 5 && (int)Vars.mode % 2 == 0)
+        StaticVariable.stage++;
+        StaticVariable.totalstage++;
+        StaticVariable.angle += 15f;
+        if (StaticVariable.stage > 5 && (int)StaticVariable.mode % 2 == 0)
         {
-            if ((int)Vars.sector > 2)
+            if ((int)StaticVariable.sector > 2)
             {
-                Vars.mode++;
-                Vars.sector = 0;
+                StaticVariable.mode++;
+                StaticVariable.sector = 0;
             }
         }
-        else if (Vars.stage > 10)
+        else if (StaticVariable.stage > 10)
         {
-            if ((int)Vars.sector > 2)
+            if ((int)StaticVariable.sector > 2)
             {
-                Vars.mode++;
+                StaticVariable.mode++;
             }
         }
-        if (Vars.sunColor.g * 255f >= 15f)
-            Vars.sunColor.g -= 15f / 255f;
-        if (Vars.sunColor.b * 255f >= 30f)
-            Vars.sunColor.b -= 30f / 255f;
+        if (StaticVariable.sunColor.g * 255f >= 15f)
+            StaticVariable.sunColor.g -= 15f / 255f;
+        if (StaticVariable.sunColor.b * 255f >= 30f)
+            StaticVariable.sunColor.b -= 30f / 255f;
 
-        SaveData.SaveStage(Vars.stage, Vars.totalstage, (int)Vars.sector, (int)Vars.mode, Vars.isVibration, Vars.soundVolume, Vars.sunColor.r, Vars.sunColor.g, Vars.sunColor.b, Vars.angle);
+        SaveData.SaveStage(StaticVariable.stage, StaticVariable.totalstage, (int)StaticVariable.sector, (int)StaticVariable.mode, StaticVariable.isVibration, StaticVariable.soundVolume, StaticVariable.sunColor.r, StaticVariable.sunColor.g, StaticVariable.sunColor.b, StaticVariable.angle);
         SceneManager.LoadScene(0);
     }
 
