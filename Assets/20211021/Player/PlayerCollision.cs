@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
     public GameObject sound;
+    private readonly int HouseDestructionStage = 4;
     private void OnTriggerEnter(Collider other)
     {
         var playerControl = GameManager.gameManager.player.GetComponent<PlayerController>();
@@ -37,8 +38,7 @@ public class PlayerCollision : MonoBehaviour
                     playerControl.houseKey = elem.Key;
             }
         }
-        if (other.CompareTag("House") && /*GetComponent<Rigidbody>().velocity.magnitude >= speed*/
-            StaticVariable.stage > 4)
+        if (other.CompareTag("House") && StaticVariable.stage > HouseDestructionStage)
         {
             sound.GetComponent<DestroySound>().SoundPlay(transform.position);
             var house = GameManager.gameManager.destoryHouse.GetComponent<DestroyHouse>().houses;

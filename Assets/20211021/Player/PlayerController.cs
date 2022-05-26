@@ -30,8 +30,8 @@ public class PlayerController : MonoBehaviour
     public float beforeY;
     [HideInInspector]
     public float isStopTime;
-    public float ragdollPower;
-    private NewReplay newReplay;
+    public float ragdollMagnitude;
+    private PlayerReplay newReplay;
     public bool IsDiving { get => isDiving; }
     public bool IsReplay { get => isReplay; }
 
@@ -40,17 +40,17 @@ public class PlayerController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         model = GameObject.FindGameObjectWithTag("PlayerModel");
         rigid = model.GetComponent<Rigidbody>();
-        ragdoll = GetComponent<CreatRagdoll>().originalRagdoll.GetComponent<Ragdoll>().ragdoll.gameObject;
-        newReplay = GetComponent<NewReplay>();
+        ragdoll = GetComponent<RagdollManager>().originalRagdoll.ragdoll.gameObject;
+        newReplay = GetComponent<PlayerReplay>();
     }
 
     private void Update()
     {
         if (model.activeSelf && rigid != null)
         {
-            ragdollPower = rigid.velocity.magnitude;
-            if (ragdollPower > 25f)
-                ragdollPower = 25f;
+            ragdollMagnitude = rigid.velocity.magnitude;
+            if (ragdollMagnitude > 25f)
+                ragdollMagnitude = 25f;
         }
     }
 
@@ -81,13 +81,13 @@ public class PlayerController : MonoBehaviour
             {
                 ReplaySetting();
                 effect[(int)StaticVariable.sector].GetComponent<EnterWaterEffect>().isSplash = true;
-                GetComponent<NewReplay>().OnReplay();
+                GetComponent<PlayerReplay>().OnReplay();
             }
         }
     }
-    public void Fly(Vector3 direction)
+
+    public void Diving(Vector3 direction)
     {
-        // 로컬로케이션을 곱해줌으로 해당 오브젝트의 방향이 바뀌더라도 항상 앞으로 다이빙 하게 한다
         var dir = transform.localRotation * new Vector3(direction.x, y, direction.y);
         force = dir * power;
         animator.SetTrigger("Diving");
@@ -96,6 +96,7 @@ public class PlayerController : MonoBehaviour
         isDiving = true;
     }
     
+
     public void OnTrigger(Collider other, Vector3 pos)
     {
         if (other.gameObject.layer != LayerMask.NameToLayer("Player") &&
@@ -103,7 +104,7 @@ public class PlayerController : MonoBehaviour
         {
             endcheak = true;
             isStopTime = Time.time;
-            var rag = GetComponent<CreatRagdoll>();
+            var rag = GetComponent<RagdollManager>();
             if (other.gameObject.layer == LayerMask.NameToLayer("Water") &&
                 isCollision)
             {
@@ -118,15 +119,16 @@ public class PlayerController : MonoBehaviour
             else if (other.gameObject.layer == LayerMask.NameToLayer("Floor") &&
                 isCollision)
             {
-                rag.CreateRagdoll(force * ragdollPower, pos);
+                rag.ActiveRagdoll(force * ragdollMagnitude, pos);
                 model.SetActive(false);
                 ReplayActive();
                 isCollision = false;
             }
+
             else if (other.gameObject.layer != LayerMask.NameToLayer("Water") &&
                      isCollision)
             {
-                rag.CreateRagdoll(force * ragdollPower, pos);
+                rag.ActiveRagdoll(force * ragdollMagnitude, pos);
                 model.SetActive(false);
                 ReplayActive();
                 isCollision = false;
@@ -135,7 +137,7 @@ public class PlayerController : MonoBehaviour
     }
     public void ReplaySetting()
     {
-        var count = GetComponent<NewReplay>().data.Count;
+        var count = GetComponent<PlayerReplay>().data.Count;
         if (initRag)
         {
             initRag = false;
@@ -149,8 +151,8 @@ public class PlayerController : MonoBehaviour
             InitHouse();
 
             model.GetComponent<Rigidbody>().useGravity = false;
-            ragdoll = GetComponent<CreatRagdoll>().replayRagdoll.GetComponent<Ragdoll>().ragdoll.gameObject;
-            var rag = GetComponent<CreatRagdoll>().replayRagdoll;
+            var rag = GetComponent<RagdollManager>().replayRagdoll;
+            ragdoll = rag.ragdoll.gameObject;
             
             var joint = rag.GetComponentsInChildren<CharacterJoint>();
             foreach (var elem in joint)
@@ -171,7 +173,7 @@ public class PlayerController : MonoBehaviour
                 effect[(int)StaticVariable.sector].GetComponent<EnterWaterEffect>().StopAllCoroutines();
 
                 var sub = GameManager.gameManager.cameraManager.GetComponent<CameraManager>().sub;
-                sub.GetComponent<FollowTarget>().isFinish = true;
+                sub.GetComponent<FollowerTarget>().isFinish = true;
             }
             else
             {
@@ -184,7 +186,7 @@ public class PlayerController : MonoBehaviour
             
             Time.timeScale = 1f;
 
-            var rag = GetComponent<CreatRagdoll>().replayRagdoll;
+            var rag = GetComponent<RagdollManager>().replayRagdoll;
             var joint = rag.GetComponentsInChildren<Rigidbody>();
             foreach (var elem in joint)
             {
@@ -236,12 +238,12 @@ public class PlayerController : MonoBehaviour
     public void ModelOnRagdollOff()
     {
         model.SetActive(true);
-        GetComponent<CreatRagdoll>().OffRagdoll();
+        GetComponent<RagdollManager>().OffRagdoll();
     }
     public void RagdollOnModelOff()
     {
         model.SetActive(false);
-        GetComponent<CreatRagdoll>().OnRagdoll();
+        GetComponent<RagdollManager>().OnRagdoll();
     }
 
     public void InitHouse()

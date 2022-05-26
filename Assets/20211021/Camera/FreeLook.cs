@@ -12,7 +12,7 @@ public class FreeLook : MonoBehaviour
     }
     private void Update()
     {
-        var ragdoll = GameManager.gameManager.player.GetComponent<CreatRagdoll>();
+        var ragdoll = GameManager.gameManager.player.GetComponent<RagdollManager>();
         //if(ragdoll.ragdoll != null)
         //{ 
         //    freeLook.Follow = ragdoll.ragdoll.transform;

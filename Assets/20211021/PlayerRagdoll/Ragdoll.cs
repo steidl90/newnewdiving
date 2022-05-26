@@ -11,3 +11,4 @@ public class Ragdoll : MonoBehaviour
         ragdoll.AddForce(force, ForceMode.Impulse);
     }
 }
+
